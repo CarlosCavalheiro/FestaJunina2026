@@ -1,6 +1,6 @@
 import "./Reserva.css";
 
-import Api from "../../services/api";
+import Api, { BLOB_QRCODES_URL } from "../../services/api";
 import Modal from "../Modal/Modal";
 // import { useState, useEffect } from "react";
 
@@ -85,7 +85,7 @@ export default function Reserva({ item }) {
                 return (
                   <div className="ingr pago">
                     <img
-                      src={`http://10.90.132.4/api/uploads/QrCodes/${item.idIngresso}.png`}
+                      src={`${BLOB_QRCODES_URL}${item.idIngresso}.png`}
                       className="QRValido"
                       alt="QR Code"
                     />

@@ -1,8 +1,35 @@
 import axios from "axios";
 
+const API_ACCESS_POINT = (
+  import.meta.env.VITE_API_URL ||
+  "https://apifestajunina-ayd4h6eabvg2dqhm.brazilsouth-01.azurewebsites.net/"
+).trim();
+
+const normalizedApiAccessPoint = API_ACCESS_POINT.endsWith("/")
+  ? API_ACCESS_POINT
+  : `${API_ACCESS_POINT}/`;
+
+export const API_BASE_URL = normalizedApiAccessPoint.endsWith("api/")
+  ? normalizedApiAccessPoint
+  : `${normalizedApiAccessPoint}api/`;
+
+export const API_ORIGIN = API_BASE_URL.replace(/api\/$/, "");
+
+const BLOB_UPLOADS_ACCESS_POINT = (
+  import.meta.env.VITE_BLOB_UPLOADS_URL ||
+  "https://arquivosfestajunina.blob.core.windows.net/uploads"
+).trim();
+
+export const BLOB_UPLOADS_BASE_URL = BLOB_UPLOADS_ACCESS_POINT.endsWith("/")
+  ? BLOB_UPLOADS_ACCESS_POINT
+  : `${BLOB_UPLOADS_ACCESS_POINT}/`;
+
+export const BLOB_FOTO_PERFIL_URL = `${BLOB_UPLOADS_BASE_URL}fotoperfil/`;
+export const BLOB_COMPROVANTES_URL = `${BLOB_UPLOADS_BASE_URL}comprovantes/`;
+export const BLOB_QRCODES_URL = `${BLOB_UPLOADS_BASE_URL}qrcodes/`;
+
 const api = axios.create({
-  //baseURL: "http://10.90.132.4/api/api/",
-  baseURL: "https://apifestajulina.senailp.com.br/api/",
+  baseURL: API_BASE_URL,
 });
 
 // Interceptor para adicionar token automaticamente

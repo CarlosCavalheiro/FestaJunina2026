@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { usuarioLogado, logout } from "../../services/auth";
 import "../Popup/Popup.css";
-import api from "../../services/api";
+import api, { BLOB_FOTO_PERFIL_URL } from "../../services/api";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
@@ -139,7 +139,7 @@ export default function Header() {
   
   if (fotoPerfilUsuario && !imagemFalhou) {
     const timestamp = new Date().getTime();
-    imagemPerfil = `http://10.90.132.4/api/uploads/FotoPerfil/${fotoPerfilUsuario}?t=${timestamp}`;
+    imagemPerfil = `${BLOB_FOTO_PERFIL_URL}${fotoPerfilUsuario}?t=${timestamp}`;
   }
 
   const handleImageError = () => {

@@ -16,7 +16,7 @@ const LoginUsuario = lazy(() =>
 );
 
 const RecuperarSenha = lazy(() =>
-  import("./pages/RecuperarSenha")
+  import("./pages/recuperarSenha")
 );
 
 const MeusIngressos = lazy(() =>
