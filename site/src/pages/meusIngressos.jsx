@@ -5,7 +5,7 @@ import Header from "../components/Header/Header";
 import Reserva from "../components/Reserva/Reserva";
 import Pix from "../components/PagamentoPix/Pix";
 import Dinheiro from "../components/PagamentoDinheiro/Dinheiro";
-import Api from "../services/api";
+import Api, { BLOB_COMPROVANTES_URL } from "../services/api";
 import "../services/auth";
 import Ingressos from "../components/Tickets/Tickets";
 
@@ -205,7 +205,7 @@ export default function MeusIngressos() {
           <div className="comprovante">
             <h4 className="titleComprovante">Comprovante do Pedido:</h4>
             <a 
-              href={`https://festajulina.senailp.com.br/uploads/ComprovantesPixs/${ComprovanteDoPedido.pedidoFtComprovante}`}
+              href={`${BLOB_COMPROVANTES_URL}${ComprovanteDoPedido.pedidoFtComprovante}`}
               target="_blank" 
               rel="noopener noreferrer"
             >

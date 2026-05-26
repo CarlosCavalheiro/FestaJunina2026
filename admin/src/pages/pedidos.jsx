@@ -2,7 +2,7 @@ import "../styles/pedidos.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { BLOB_COMPROVANTES_URL } from "../services/api";
 
 const statusMap = {
   1: "Reservado",
@@ -223,7 +223,7 @@ function Pedidos() {
                       <td>
                         {p.ftComprovante ? (
                           <a
-                            href={`https://festajulina.senailp.com.br/uploads/ComprovantesPixs/${p.ftComprovante}`}
+                            href={`${BLOB_COMPROVANTES_URL}${p.ftComprovante}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="link_comprovante"
