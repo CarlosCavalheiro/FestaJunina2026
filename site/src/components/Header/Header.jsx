@@ -53,6 +53,16 @@ export default function Header() {
   const navigate = useNavigate();
   const logado = usuarioLogado();
 
+  const alternarMenuPrincipal = () => {
+    setMenu((aberto) => !aberto);
+    setMenuPerfil(false);
+  };
+
+  const alternarMenuPerfil = () => {
+    setMenuPerfil((aberto) => !aberto);
+    setMenu(false);
+  };
+
   
   useEffect(() => {
     const readFromStorage = () => {
@@ -195,17 +205,23 @@ export default function Header() {
   return (
     <header>
       <nav className="menu">
-        <button className="btn-menu" onClick={() => setMenu(!menu)}>
+        <button className="btn-menu" onClick={alternarMenuPrincipal}>
           ☰
         </button>
 
         {menu && (
           <div className="links-menu">
-            <button onClick={() => navigate("/meusIngressos")}>
+            <button onClick={() => {
+              navigate("/meusIngressos");
+              setMenu(false);
+            }}>
               Meus ingressos
             </button>
 
-            <a href="https://api.whatsapp.com/send/?phone=5514999052383&text&type=phone_number&app_absent=0">
+            <a
+              href="https://api.whatsapp.com/send/?phone=5514999052383&text&type=phone_number&app_absent=0"
+              onClick={() => setMenu(false)}
+            >
               Fale Conosco
             </a>
           </div>
@@ -226,7 +242,7 @@ export default function Header() {
           src={imagemPerfil}
           className="login"
           alt="perfil"
-          onClick={() => setMenuPerfil(!menuPerfil)}
+          onClick={alternarMenuPerfil}
           onError={handleImageError}
         />
 

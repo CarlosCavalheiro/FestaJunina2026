@@ -3,16 +3,17 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    margin: 10vh 0 0 0;
-    padding: 0;
+    max-width: 1100px;
+    margin: 1.5rem auto 0;
+    padding: 0 1rem;
     line-height: 0;
 }
 
 .fotos {
-    width: 60vw;
-    height: 70vh;
+    width: 100%;
+    height: clamp(260px, 58vh, 620px);
     object-fit: cover;
-    border-radius: 2vh;
+    border-radius: 16px;
 }
 
 /* BOTÕES */
@@ -20,11 +21,11 @@
 #voltar {
     position: absolute;
     top: 50%;
-    width: 6vh;
-    height: 6vh;
+    width: 42px;
+    height: 42px;
     background-color: #ffffff99;
     border: none;
-    font-size: 3vh;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 50%;
     color: white;
@@ -36,17 +37,17 @@
 }
 
 #ir {
-    right: 22vw;
+    right: 2rem;
 }
 
 #voltar {
-    left: 22vw;
+    left: 2rem;
 }
 
 /* ---------- TABLET ---------- */
 @media (max-width: 1024px) {
-    .fotos {
-        width: 95%;
+    .carrossel {
+        margin-top: 1rem;
     }
 
     #ir, #voltar {
@@ -59,11 +60,13 @@
 /* ---------- CELULAR ---------- */
 @media (max-width: 768px) {
     .carrossel {
-        margin-top: 3vh;
+        margin-top: 0.75rem;
+        padding: 0 0.5rem;
     }
 
     .fotos {
-        width: 95%;
+        width: 100%;
+        height: clamp(220px, 42vh, 360px);
         border-radius: 10px;
     }
 

@@ -1,16 +1,19 @@
 footer {
     background-color: brown;
     width: 100%;
-    padding: 5vh 3vw;
-    margin-top: 60px;
+    padding: 2.5rem 1.25rem 1.5rem;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
 }
 
 .links-footer {
     display: flex;
-    flex-direction: row; 
-    gap: 14vw; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
 }
 
 .links-footer div {
@@ -20,16 +23,16 @@ footer {
 
 .sobre-footer {
     color: white;
-    font-size: 2.5vh;
-    margin-bottom: 1vh;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    margin-bottom: 0.5rem;
     font-weight: bold;
 }
 
 .links-footer a {
     color: white;
     text-decoration: none;
-    font-size: 2.2vh;
-    margin-bottom: 0.5vh;
+    font-size: clamp(0.92rem, 1vw, 1.05rem);
+    margin-bottom: 0.3rem;
 }
 
 .links-footer a:hover {
@@ -38,38 +41,39 @@ footer {
 }
 
 .icon-social {
-    height: 3vh;
-    width: 1.5vw;
-    margin: 0.2vw;
+    height: 28px;
+    width: 28px;
+    margin: 0.15rem 0;
+    object-fit: contain;
 }
 
 .logo-footer {
-    height: 22vh;
+    height: clamp(90px, 12vh, 140px);
     width: auto;
-    margin-left: 2vw; 
+    margin: 0;
 }
 
 .direitos {
     color: white;
-    font-size: 2vh;
+    font-size: clamp(0.82rem, 0.9vw, 0.95rem);
     text-align: center;
-    margin-top: 2vh;
+    margin-top: 1.25rem;
     font-weight: bold;
 }
 
 @media (max-width: 1024px) {
     .links-footer {
-        gap: 8vw;
+        gap: 1.2rem;
     }
 
     .logo-footer {
-        height: 20vh;
+        height: clamp(88px, 11vh, 120px);
         margin: 0;
     }
 
     .icon-social {
-        width: 2.5vw;
-        height: auto;
+        width: 26px;
+        height: 26px;
     }
 }
 
@@ -78,17 +82,17 @@ footer {
     .links-footer {
         flex-direction: column;
         align-items: center;
-        gap: 4vh;
+        gap: 1.2rem;
         text-align: center;
     }
 
     .logo-footer {
-        height: 15vh;
+        height: clamp(82px, 10vh, 110px);
         margin: 0;
     }
 
     .icon-social {
-        width: 3.5vw;
-        height: auto;
+        width: 26px;
+        height: 26px;
     }
 }

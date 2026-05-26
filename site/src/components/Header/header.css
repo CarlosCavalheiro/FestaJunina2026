@@ -22,38 +22,40 @@ header {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 2vw;
+  gap: 0.5rem;
 }
 
 .btn-menu {
   background: none;
   border: none;
   color: white;
-  font-size: 6vh;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
   cursor: pointer;
-  padding: 1.5vh 2vw;
+  padding: 0.3rem 0.5rem;
+  line-height: 1;
 }
 
 .links-menu {
-  display: none;
+  display: block;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
-  width: 12vw;
+  width: min(280px, 82vw);
   background-color: #f5f5f5;
-  border-radius: 2vh;
-  box-shadow: 0 1vh 2vh brown;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .links-menu button {
   display: block;
   width: 100%;
-  padding: 2vh;
+  padding: 0.85rem 1rem;
   background: none;
   border: none;
   text-align: left;
   color: black;
-  font-size: inherit;
+  font-size: 0.96rem;
   cursor: pointer;
 }
 
@@ -65,19 +67,16 @@ header {
 
 .links-menu a {
   display: block;
-  padding: 2vh;
+  padding: 0.85rem 1rem;
   text-decoration: none;
   color: black;
+  font-size: 0.96rem;
 }
 
 .links-menu a:hover {
   background-color: brown;
   color: white;
   border-radius: 2vh;
-}
-
-.menu:hover .links-menu {
-  display: block;
 }
 
 .menu-txt {
@@ -105,9 +104,9 @@ header {
 
 /*img*/
 .logo {
-  height: 100px;
+  height: clamp(64px, 9vw, 96px);
   width: auto;
-  margin-left: 2vw;
+  margin-left: 0.75rem;
   cursor: pointer;
 }
 
@@ -131,6 +130,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.6rem;
 }
 
 .opcoes-login {
@@ -187,14 +187,14 @@ header {
 .menu-perfil {
   position: absolute;
   right: 0;
-  top: 100%;
-  width: 20vw;
+  top: calc(100% + 8px);
+  width: min(320px, 90vw);
   min-width: 250px;
   max-width: 320px;
   background-color: #f5f5f5;
-  border-radius: 2vh;
-  padding: 2vh 1.5vw;
-  box-shadow: 0 2vh 4vh brown;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
   z-index: 9999;
 }
 
@@ -259,57 +259,71 @@ header {
   border: 0.2vh solid brown;
   color: black;
   border-radius: 2vh;
-  padding: 1vh 1vw;
+  padding: 0.65rem 0.9rem;
   cursor: pointer;
   width: 100%;
-  font-size: 1.8vh;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 768px) {
-  .links-menu {
-    width: 20vw;
+  header {
+    min-height: 74px;
+    padding: 8px 12px;
   }
 
-  .conta {
-    position: relative;
+  .logo {
+    height: 60px;
+    margin-left: 0.35rem;
   }
 
-  .opcoes-login {
-    right: 0;
-    left: auto;
-    width: 15vw;
-    min-width: 120px;
+  .bemvindo {
+    font-size: 0.95rem;
+    padding-right: 0;
+  }
+
+  .menu-perfil {
+    right: -6px;
+    width: min(300px, 92vw);
   }
 }
 
 @media (max-width: 480px) {
   header {
-    height: auto;
-    flex-wrap: wrap;
+    min-height: 68px;
     justify-content: space-between;
+    padding: 8px 10px;
   }
 
   .logo {
-    height: 70px;
+    height: 52px;
+    margin-left: 0.25rem;
   }
 
   .btn-menu {
-    font-size: 5vh;
+    font-size: 1.9rem;
+    padding: 0.2rem 0.35rem;
   }
 
   .links-menu {
-    width: 50vw;
+    left: -4px;
+    width: min(270px, 90vw);
   }
 
-  .conta {
-    position: relative;
+  .bemvindo {
+    font-size: 0.88rem;
   }
 
-  .opcoes-login {
+  .login {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .menu-perfil {
     right: 0;
-    left: auto;
-    width: 35vw;
-    min-width: 120px;
+    width: min(280px, 92vw);
+    min-width: auto;
   }
 }
 
@@ -414,6 +428,7 @@ header {
 
 .bemvindo {
   color: white;
-  padding-right: 5vh;
+  padding-right: 0.35rem;
   font-weight: 700;
+  white-space: nowrap;
 }
