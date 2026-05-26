@@ -1,18 +1,24 @@
 {
   "routes": [
-    { "route": "/Admin",    "rewrite": "/Admin/index.html" },
-    { "route": "/Admin/*",  "rewrite": "/Admin/index.html" },
-    { "route": "/Portaria", "rewrite": "/Portaria/index.html" },
-    { "route": "/Portaria/*", "rewrite": "/Portaria/index.html" },
-    { "route": "/Pesquisa", "rewrite": "/Pesquisa/index.html" },
-    { "route": "/Pesquisa/*", "rewrite": "/Pesquisa/index.html" }
+    { "route": "/admin",    "rewrite": "/admin/index.html" },
+    { "route": "/admin/*",  "rewrite": "/admin/index.html" },
+    { "route": "/Admin",    "redirect": "/admin", "statusCode": 301 },
+    { "route": "/Admin/*",  "redirect": "/admin", "statusCode": 301 },
+    { "route": "/portaria", "rewrite": "/portaria/index.html" },
+    { "route": "/portaria/*", "rewrite": "/portaria/index.html" },
+    { "route": "/Portaria", "redirect": "/portaria", "statusCode": 301 },
+    { "route": "/Portaria/*", "redirect": "/portaria", "statusCode": 301 },
+    { "route": "/pesquisa", "rewrite": "/pesquisa/index.html" },
+    { "route": "/pesquisa/*", "rewrite": "/pesquisa/index.html" },
+    { "route": "/Pesquisa", "redirect": "/pesquisa", "statusCode": 301 },
+    { "route": "/Pesquisa/*", "redirect": "/pesquisa", "statusCode": 301 }
   ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
-      "/Admin/*",
-      "/Portaria/*",
-      "/Pesquisa/*",
+      "/admin/*",
+      "/portaria/*",
+      "/pesquisa/*",
       "/*.{css,js,png,jpg,jpeg,svg,ico,json,woff,woff2,ttf,eot,map}"
     ]
   },

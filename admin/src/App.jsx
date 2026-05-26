@@ -14,7 +14,7 @@ const Lotes = lazy(() => import("./pages/lotes"));
 
 export default function App() {
   return (
-    <BrowserRouter basename="/Admin">
+    <BrowserRouter basename="/admin">
       <Suspense fallback={<div>Carregando...</div>}>
         <Routes>
           <Route path="/" element={<Login />} />

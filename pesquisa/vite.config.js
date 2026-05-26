@@ -3,9 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/Pesquisa/",
+  base: "/pesquisa/",
   build: {
-    outDir: "../dist/Pesquisa",
+    outDir: "../dist/pesquisa",
     emptyOutDir: false,
   },
 });

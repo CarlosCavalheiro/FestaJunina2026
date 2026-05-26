@@ -6,7 +6,7 @@ import "./App.css"
 
 function App() {
   return (
-     <BrowserRouter basename="/Pesquisa/">
+     <BrowserRouter basename="/pesquisa/">
     <div className="app">
       <Header />
       <Formulario />

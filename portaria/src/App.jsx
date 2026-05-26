@@ -9,7 +9,7 @@ const Historico = lazy(() => import("./pages/Historico"));
 
 export default function App() {
   return (
-    <BrowserRouter basename="/Portaria">
+    <BrowserRouter basename="/portaria">
       <Suspense fallback={<div>Carregando...</div>}>
         <Routes>
           <Route path="/" element={<Login />} />
