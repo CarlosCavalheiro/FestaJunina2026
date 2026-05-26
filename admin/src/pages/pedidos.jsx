@@ -8,6 +8,7 @@ const statusMap = {
   1: "Reservado",
   2: "Pago",
   3: "Cancelado",
+  4: "Verificando",
 };
 
 const pagamentoMap = {
@@ -205,6 +206,8 @@ function Pedidos() {
                           className={
                             p.idStatus === 1
                               ? "status-pendente"
+                              : p.idStatus === 4
+                                ? "status-verificando"
                               : p.idStatus === 2
                                 ? "status-pago"
                                 : "status-cancelado"
@@ -236,7 +239,7 @@ function Pedidos() {
                       </td>
 
                       <td>
-                        {p.idStatus === 1 ? (
+                        {p.idStatus === 1 || p.idStatus === 4 ? (
                           <div className="acoes_pedidos">
                             <button
                               className="btn btn-outline-success btn_pedido"

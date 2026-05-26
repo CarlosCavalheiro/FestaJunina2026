@@ -122,6 +122,12 @@
   font-weight: 700;
 }
 
+.status-verificando {
+  color: rgb(180, 83, 9);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .status-pago {
   color: rgb(22, 101, 52);
   font-size: 0.8rem;
