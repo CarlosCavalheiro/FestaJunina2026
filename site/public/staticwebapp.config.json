@@ -1,13 +1,16 @@
 {
   "routes": [
+    { "route": "/admin/assets/*", "rewrite": "/admin/assets/*" },
     { "route": "/admin",    "rewrite": "/admin/index.html" },
     { "route": "/admin/*",  "rewrite": "/admin/index.html" },
     { "route": "/Admin",    "redirect": "/admin", "statusCode": 301 },
     { "route": "/Admin/*",  "redirect": "/admin", "statusCode": 301 },
+    { "route": "/portaria/assets/*", "rewrite": "/portaria/assets/*" },
     { "route": "/portaria", "rewrite": "/portaria/index.html" },
     { "route": "/portaria/*", "rewrite": "/portaria/index.html" },
     { "route": "/Portaria", "redirect": "/portaria", "statusCode": 301 },
     { "route": "/Portaria/*", "redirect": "/portaria", "statusCode": 301 },
+    { "route": "/pesquisa/assets/*", "rewrite": "/pesquisa/assets/*" },
     { "route": "/pesquisa", "rewrite": "/pesquisa/index.html" },
     { "route": "/pesquisa/*", "rewrite": "/pesquisa/index.html" },
     { "route": "/Pesquisa", "redirect": "/pesquisa", "statusCode": 301 },
