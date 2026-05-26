@@ -5,7 +5,39 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { usuarioLogado, logout } from "../../services/auth";
 import "../Popup/Popup.css";
-import api, { BLOB_FOTO_PERFIL_URL } from "../../services/api";
+import api, { BLOB_FOTO_PERFIL_URL, BLOB_UPLOADS_BASE_URL } from "../../services/api";
+
+function montarUrlsFotoPerfil(fotoPerfil) {
+  if (!fotoPerfil) {
+    return [];
+  }
+
+  const valor = String(fotoPerfil).trim();
+  if (!valor) {
+    return [];
+  }
+
+  // Quando a API já retorna URL completa (inclusive com SAS), usa diretamente.
+  if (/^https?:\/\//i.test(valor)) {
+    return [valor];
+  }
+
+  const normalizado = valor.replace(/^\/+/, "");
+  const normalizadoLower = normalizado.toLowerCase();
+
+  if (normalizadoLower.startsWith("uploads/")) {
+    return [`${BLOB_UPLOADS_BASE_URL}${normalizado.slice("uploads/".length)}`];
+  }
+
+  if (normalizadoLower.startsWith("fotoperfil/")) {
+    return [`${BLOB_UPLOADS_BASE_URL}${normalizado}`];
+  }
+
+  return [
+    `${BLOB_FOTO_PERFIL_URL}${normalizado}`,
+    `${BLOB_UPLOADS_BASE_URL}FotoPerfil/${normalizado}`,
+  ];
+}
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
@@ -16,6 +48,7 @@ export default function Header() {
   const [foto, setFoto] = useState(null);
   const [imagemFalhou, setImagemFalhou] = useState(false);
   const [fotoPerfilAtual, setFotoPerfilAtual] = useState(null); 
+  const [indiceTentativaFoto, setIndiceTentativaFoto] = useState(0);
 
   const navigate = useNavigate();
   const logado = usuarioLogado();
@@ -34,6 +67,7 @@ export default function Header() {
       const fotoSalva = usuarioObj?.fotoPerfil ?? localStorage.getItem("fotoPerfil") ?? null;
       setFotoPerfilAtual(fotoSalva);
       setImagemFalhou(false);
+      setIndiceTentativaFoto(0);
     };
 
     readFromStorage();
@@ -44,6 +78,7 @@ export default function Header() {
         const fotoSalva = usuarioAtualizado?.fotoPerfil ?? localStorage.getItem("fotoPerfil") ?? null;
         setFotoPerfilAtual(fotoSalva);
         setImagemFalhou(false);
+        setIndiceTentativaFoto(0);
       } else {
         readFromStorage();
       }
@@ -106,6 +141,7 @@ export default function Header() {
         localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
         localStorage.setItem("fotoPerfil", fotoRetornada);
         setImagemFalhou(false);
+        setIndiceTentativaFoto(0);
 
         try {
           window.dispatchEvent(new CustomEvent("usuarioAtualizado", { detail: usuarioAtualizado }));
@@ -138,11 +174,21 @@ export default function Header() {
   let imagemPerfil = conta;
   
   if (fotoPerfilUsuario && !imagemFalhou) {
-    const timestamp = new Date().getTime();
-    imagemPerfil = `${BLOB_FOTO_PERFIL_URL}${fotoPerfilUsuario}?t=${timestamp}`;
+    const urlsPossiveis = montarUrlsFotoPerfil(fotoPerfilUsuario);
+    const urlBase = urlsPossiveis[indiceTentativaFoto] ?? null;
+    if (urlBase) {
+      const separador = urlBase.includes("?") ? "&" : "?";
+      const timestamp = new Date().getTime();
+      imagemPerfil = `${urlBase}${separador}t=${timestamp}`;
+    }
   }
 
   const handleImageError = () => {
+    const urlsPossiveis = montarUrlsFotoPerfil(fotoPerfilUsuario);
+    if (indiceTentativaFoto + 1 < urlsPossiveis.length) {
+      setIndiceTentativaFoto((valorAtual) => valorAtual + 1);
+      return;
+    }
     setImagemFalhou(true);
   };
 
