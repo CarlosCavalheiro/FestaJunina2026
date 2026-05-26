@@ -9,10 +9,13 @@ export default function Ingressos() {
   const navigate = useNavigate();
 
   const [lotes, setLotes] = useState([]);
+  const [carregandoLotes, setCarregandoLotes] = useState(true);
 
-  const LoteAtivo = lotes.find(
+  const loteAtivo = lotes.find(
     (lote) => lote.ativo === true
   );
+
+  const temLoteAtivo = Boolean(loteAtivo);
 
   async function carregarLotes() {
     const ENDPOINT_LISTAR_LOTES = "Lotes/ListarLotes";
@@ -24,17 +27,12 @@ export default function Ingressos() {
         (a, b) => new Date(a.dataCriacao) - new Date(b.dataCriacao),
       );
 
-      if (LoteAtivo == false) {
-      abrirModal(
-        "Não tem lotes em aberto atualmente, aguarde um novo lote ser aberto.",
-      );
-      return;
-    }
-
       setLotes(LoteDados);
     } catch (error) {
       console.log("Erro completo:", error);
       abrirModal("Erro ao carregar lotes");
+    } finally {
+      setCarregandoLotes(false);
     }
   }
 
@@ -226,7 +224,7 @@ export default function Ingressos() {
       return;
     }
 
-    if (LoteAtivo == false) {
+    if (!temLoteAtivo) {
       abrirModal(
         "Não tem lotes em aberto atualmente, aguarde um novo lote ser aberto.",
       );
@@ -296,72 +294,81 @@ export default function Ingressos() {
     <>
       <div className="garantaing">
         <h2 className="titulo-lote">
-          {loteAtual?.descricao || "Carregando..."}
-          {" | "}
-          {loteAtual?.saldo || 0}
-          {" ingressos restantes"}
+          {carregandoLotes
+            ? "Carregando lotes..."
+            : temLoteAtivo
+              ? `${loteAtual?.descricao || "Lote Ativo"} | ${loteAtual?.saldo || 0} ingressos restantes`
+              : "Lotes ainda não disponíveis"}
         </h2>
 
-        <div className="box">
-          {tickets.map((t, i) => (
-            <div className="row" key={i}>
-              <div className="label">
-                {t.nome} - {formatar(t.preco)}
-              </div>
+        {!carregandoLotes && !temLoteAtivo ? (
+          <div className="aviso-sem-lote">
+            No momento ainda não há lote ativo para compra. Aguarde, assim que um lote for aberto os ingressos ficarão disponíveis aqui.
+          </div>
+        ) : (
+          <>
+            <div className="box">
+              {tickets.map((t, i) => (
+                <div className="row" key={i}>
+                  <div className="label">
+                    {t.nome} - {formatar(t.preco)}
+                  </div>
 
-              <div className="controls">
-                <button className="btn-menos" onClick={() => alterar(i, -1)}>
-                  -
-                </button>
-                <div className="qty">{t.qtd}</div>
-                <button className="btn-mais" onClick={() => alterar(i, 1)}>
-                  +
-                </button>
+                  <div className="controls">
+                    <button className="btn-menos" onClick={() => alterar(i, -1)}>
+                      -
+                    </button>
+                    <div className="qty">{t.qtd}</div>
+                    <button className="btn-mais" onClick={() => alterar(i, 1)}>
+                      +
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="payment-method">
+              <label>Escolha a forma de pagamento:</label>
+              <div className="payment-options">
+                <label>
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="pix"
+                    checked={paymentMethod === 1}
+                    onChange={() => setPaymentMethod(1)}
+                  />
+                  PIX
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="dinheiro"
+                    checked={paymentMethod === 2}
+                    onChange={() => setPaymentMethod(2)}
+                  />
+                  Dinheiro
+                </label>
               </div>
             </div>
-          ))}
-        </div>
 
-        <div className="payment-method">
-          <label>Escolha a forma de pagamento:</label>
-          <div className="payment-options">
-            <label>
-              <input
-                type="radio"
-                name="payment"
-                value="pix"
-                checked={paymentMethod === 1}
-                onChange={() => setPaymentMethod(1)}
-              />
-              PIX
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="payment"
-                value="dinheiro"
-                checked={paymentMethod === 2}
-                onChange={() => setPaymentMethod(2)}
-              />
-              Dinheiro
-            </label>
-          </div>
-        </div>
+            <div className="linha-total">
+              <div className="total-label">
+                <span>
+                  Total <strong>{totalQtd}</strong>
+                </span>
+                <span>{formatar(totalValor)}</span>
+              </div>
+            </div>
 
-        <div className="linha-total">
-          <div className="total-label">
-            <span>
-              Total <strong>{totalQtd}</strong>
-            </span>
-            <span>{formatar(totalValor)}</span>
-          </div>
-        </div>
-
-        <div className="prossegir-div">
-          <button className="btn-prosseguir" onClick={VerificarPedidoPendente}>
-            {carregando ? "Processando..." : "PROSSEGUIR"}
-          </button>
-        </div>
+            <div className="prossegir-div">
+              <button className="btn-prosseguir" onClick={VerificarPedidoPendente}>
+                {carregando ? "Processando..." : "PROSSEGUIR"}
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
       {modal &&

@@ -150,6 +150,19 @@
   transform: scale(1.05);
 }
 
+.aviso-sem-lote {
+  margin: 0.5rem auto 0.75rem;
+  width: min(100%, 720px);
+  border: 1px solid #f5c35a;
+  background: #fff7e8;
+  color: #8a5200;
+  border-radius: 10px;
+  padding: 0.95rem 1rem;
+  text-align: center;
+  line-height: 1.45;
+  font-size: 0.98rem;
+}
+
 @media (max-width: 768px) {
   .garantaing {
     margin: 0.8rem auto 2rem;

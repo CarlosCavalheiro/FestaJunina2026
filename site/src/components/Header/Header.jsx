@@ -212,6 +212,13 @@ export default function Header() {
         {menu && (
           <div className="links-menu">
             <button onClick={() => {
+              navigate("/");
+              setMenu(false);
+            }}>
+              Início
+            </button>
+
+            <button onClick={() => {
               navigate("/meusIngressos");
               setMenu(false);
             }}>
