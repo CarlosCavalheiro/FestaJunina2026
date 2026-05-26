@@ -2,7 +2,7 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 import logo from "../assets/LogoFestaJulina.png";
 import perfil from "../assets/pfp.png";
-import LeitorQR from "../components/LeitorQR";
+import LeitorQR from "../components/LeitorQr";
 import '../styles/QrCode.css'
 
 function App() {

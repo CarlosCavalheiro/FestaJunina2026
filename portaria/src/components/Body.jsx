@@ -1,4 +1,4 @@
-import LeitorQR from "./LeitorQR";
+import LeitorQR from "./LeitorQr";
 
 function Body() {
   return (
