@@ -1,0 +1,359 @@
+.main_dashboard {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px;
+  background: linear-gradient(180deg, #f5f7fb 0%, #eef2f7 100%);
+}
+
+.dashboard_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.titulo_dashboard {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: rgb(17, 24, 39);
+  margin-bottom: 10px;
+}
+
+.subtitulo_dashboard {
+  color: rgb(107, 114, 128);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.select_dashboard {
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 14px;
+  margin-bottom: 1%;
+  border: 1px solid #dbe2ea;
+  background: #ffffff;
+  color: #334155;
+  font-weight: 500;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.cards-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.card-dashboard {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 140px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #edf0f5;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  transition: 0.2s ease;
+}
+
+.card-dashboard:hover {
+  transform: translateY(-4px);
+}
+
+.card-dashboard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+}
+
+.icone-card {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.receita .icone-card {
+  color: #b7d9c9;
+}
+
+.pedidos .icone-card {
+  color: #b9d2ff;
+}
+
+.usuarios .icone-card {
+  color: #cdbbea;
+}
+
+.ingressos .icone-card {
+  color: #ffc79f;
+}
+
+.card-dashboard h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(107, 114, 128);
+  margin-bottom: 10px;
+}
+
+.card-dashboard p {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgb(17, 24, 39);
+}
+
+.filtros_dashboard {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  margin-bottom: 35px;
+  border: 1px solid #edf0f5;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.titulo_filtros {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.titulo_filtros h3 {
+  font-size: 24px;
+  color: #111827;
+}
+
+.filtros_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.filtro_item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filtro_item label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.filtro_item select {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #dbe2ea;
+  background: #f8fafc;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.grafico-card {
+  background: white;
+  border-radius: 28px;
+  padding: 28px;
+  border: 1px solid #edf0f5;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.grafico-header {
+  margin-bottom: 20px;
+}
+
+.grafico-header h3,
+.grafico-card h3 {
+  font-size: 21px;
+  font-weight: 600;
+  color: rgb(17, 24, 39);
+}
+
+.respostas_dashboard {
+  background: white;
+  border-radius: 28px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.respostas_dashboard h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.pergunta_dashboard {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eceff3;
+}
+
+.pergunta_dashboard h3 {
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.resposta_dashboard {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  color: #475569;
+  border: 1px solid #e5e7eb;
+}
+
+.loading_dashboard,
+.erro_dashboard {
+  background: white;
+  padding: 50px;
+  border-radius: 24px;
+  text-align: center;
+  font-size: 22px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.acoes_topo_dashboard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.graficos_dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.grafico_dashboard {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.botao_toggle_dashboard {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border: none;
+  border-radius: 14px;
+  margin-bottom: 1%;
+  background: #6c757d;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.botao_toggle_dashboard:hover {
+  background: #4b555e;
+  transform: translateY(-2px);
+}
+
+.sem_dados_dashboard {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 16px;
+  min-height: 250px;
+}
+
+.pergunta-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.badge_user {
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.badge_user.cliente {
+  background-color: #0d6efd;
+}
+
+.badge_user.colaborador {
+  background-color: #198754;
+}
+
+.badge_user.entidade {
+  background-color: #dc3545;
+}
+
+@media (max-width: 1200px) {
+  .cards-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .main_dashboard {
+    padding: 20px;
+  }
+
+  .dashboard_top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .cards-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grafico-card {
+    overflow-x: auto;
+  }
+
+  .titulo_dashboard {
+    font-size: 2rem;
+  }
+
+  .card-dashboard p {
+    font-size: 1.5rem;
+  }
+
+  .acoes_topo_dashboard {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .botao_toggle_dashboard {
+    width: 100%;
+  }
+}

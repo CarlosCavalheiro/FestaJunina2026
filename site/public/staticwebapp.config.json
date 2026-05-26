@@ -1,0 +1,22 @@
+{
+  "routes": [
+    { "route": "/Admin",    "rewrite": "/Admin/index.html" },
+    { "route": "/Admin/*",  "rewrite": "/Admin/index.html" },
+    { "route": "/Portaria", "rewrite": "/Portaria/index.html" },
+    { "route": "/Portaria/*", "rewrite": "/Portaria/index.html" },
+    { "route": "/Pesquisa", "rewrite": "/Pesquisa/index.html" },
+    { "route": "/Pesquisa/*", "rewrite": "/Pesquisa/index.html" }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/Admin/*",
+      "/Portaria/*",
+      "/Pesquisa/*",
+      "/*.{css,js,png,jpg,jpeg,svg,ico,json,woff,woff2,ttf,eot,map}"
+    ]
+  },
+  "mimeTypes": {
+    ".json": "application/json"
+  }
+}

@@ -1,0 +1,235 @@
+.main_pedidos {
+  width: 100%;
+  padding: 1.5rem 0;
+  background: rgb(245, 247, 250);
+}
+
+.container_pedidos {
+  max-width: 70rem;
+  margin: 1.5rem auto;
+  padding: 1.2rem;
+  background: rgb(255, 255, 255);
+  border-radius: 1rem;
+  border: 1px solid rgb(224, 224, 224);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.confirm_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+}
+
+.confirm_box {
+  width: 400px;
+  max-width: 90%;
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: popupFade 0.2s ease;
+}
+
+.confirm_title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: rgb(33, 37, 41);
+}
+
+.confirm_text {
+  font-size: 16px;
+  color: rgb(90, 90, 90);
+  margin-bottom: 25px;
+}
+
+.confirm_buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.h4_pedidos {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.filters_pedidos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.2rem auto 0.8rem;
+  width: 100%;
+}
+
+.input_pedidos,
+.select_pedidos {
+  padding: 0.5rem;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+  outline: none;
+}
+
+.input_pedidos:focus,
+.select_pedidos:focus {
+  border-color: rgb(13, 110, 253);
+}
+
+.table_container_pedidos {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table_pedidos {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  border-collapse: collapse;
+  background: rgb(255, 255, 255);
+}
+
+.table_pedidos th {
+  padding: 0.9rem 0.6rem;
+  font-weight: bold;
+  font-size: 0.95rem;
+  background: rgb(255, 255, 255);
+  white-space: nowrap;
+}
+
+.table_pedidos td {
+  padding: 1rem 0.6rem;
+  vertical-align: middle;
+}
+
+.table_pedidos tr {
+  border-top: 1px solid rgb(224, 224, 224);
+}
+
+.status-pendente {
+  color: rgb(173, 161, 4);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-pago {
+  color: rgb(22, 101, 52);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-cancelado {
+  color: rgb(153, 27, 27);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.acoes_pedidos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 42px;
+}
+
+.btn_pedido {
+  min-width: 120px;
+  height: 42px;
+  border-radius: 0.6rem;
+}
+
+.aviso_pedido {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 260px;
+  height: 42px;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.link_comprovante {
+  text-decoration: none;
+  color: rgb(13, 110, 253);
+  font-weight: 500;
+}
+
+.link_comprovante:hover {
+  text-decoration: underline;
+}
+
+.popup_pedidos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.popup_content_pedidos {
+  background: rgb(255, 255, 255);
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.popup_content_pedidos p {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container_pedidos {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .filters_pedidos {
+    flex-direction: column;
+  }
+
+  .filters_pedidos input,
+  .filters_pedidos select {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .table_container_pedidos {
+    overflow-x: auto;
+  }
+
+  .table_pedidos {
+    width: 100%;
+    min-width: 900px;
+  }
+
+  .acoes_pedidos {
+    flex-direction: column;
+  }
+
+  .btn_pedido {
+    width: 100%;
+  }
+
+  .aviso_pedido {
+    width: 100%;
+  }
+}

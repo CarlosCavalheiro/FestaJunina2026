@@ -1,0 +1,144 @@
+.main_editar {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgb(255, 255, 255);
+  border-radius: 1.2rem;
+  border: 1px solid rgb(229, 231, 235);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.lista_editar {
+  width: 100%;
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(229, 231, 235);
+}
+
+.status_ativo {
+  color: rgb(25, 135, 84);
+  font-weight: bold;
+}
+
+.status_inativo {
+  color: rgb(220, 53, 69);
+  font-weight: bold;
+}
+.titulo_editar {
+  display: flex;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgb(44, 44, 44);
+}
+
+.perguntas_editar {
+  padding: 1.3rem;
+  border-radius: 1rem;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.botao_editar{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.topo_evento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.h4_editar {
+  margin-bottom: 0.6rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgb(31, 41, 55);
+}
+
+.pergunta_editar {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  color: rgb(55, 65, 81);
+}
+
+.input_editar {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid rgb(209, 213, 219);
+  padding: 0.65rem;
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: rgb(249, 250, 251);
+}
+
+.input_editar:focus {
+  outline: none;
+  border-color: rgb(37, 99, 235);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.obs_editar {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: rgb(107, 114, 128);
+}
+
+.acoes_editar {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.popup_editar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.popup_content_editar {
+  background: white;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  min-width: 280px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .main_editar {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .titulo_editar {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,83 @@
+.carrossel {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: 10vh 0 0 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.fotos {
+    width: 60vw;
+    height: 70vh;
+    object-fit: cover;
+    border-radius: 2vh;
+}
+
+/* BOTÕES */
+#ir,
+#voltar {
+    position: absolute;
+    top: 50%;
+    width: 6vh;
+    height: 6vh;
+    background-color: #ffffff99;
+    border: none;
+    font-size: 3vh;
+    cursor: pointer;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ir {
+    right: 22vw;
+}
+
+#voltar {
+    left: 22vw;
+}
+
+/* ---------- TABLET ---------- */
+@media (max-width: 1024px) {
+    .fotos {
+        width: 95%;
+    }
+
+    #ir, #voltar {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+/* ---------- CELULAR ---------- */
+@media (max-width: 768px) {
+    .carrossel {
+        margin-top: 3vh;
+    }
+
+    .fotos {
+        width: 95%;
+        border-radius: 10px;
+    }
+
+    #ir, #voltar {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    #voltar {
+        left: 3%;
+    }
+
+    #ir {
+        right: 3%;
+    }
+}

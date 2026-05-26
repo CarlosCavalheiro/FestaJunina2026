@@ -1,0 +1,170 @@
+:root {
+  --primary-color: #d34800;
+  --secondary-color: #005da5;
+  --header-bg: rgb(198, 18, 18);
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Poppins", sans-serif;
+}
+
+@media (max-width: 640px) {
+  .main-header {
+    padding: 20px 0;
+  }
+
+  .logo-senai {
+    height: 90px;
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-senai {
+    height: 65px;
+    max-width: 190px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.card-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 95px);
+  margin-top: -0px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 40px 35px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.card h2 {
+  margin-bottom: 8px;
+  color: #1f2937;
+
+  font-size: 32px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+
+  margin-bottom: 25px;
+}
+
+.input-group {
+  text-align: left;
+
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #374151;
+
+  margin-bottom: 5px;
+
+  display: block;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  padding: 12px 42px 12px 12px;
+
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+.input-wrapper input:focus {
+  border-color: #ef4444;
+}
+
+.error-msg {
+  display: none;
+  color: #ed1c24;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+input:invalid:not(:placeholder-shown) {
+  border-color: #ed1c24;
+}
+
+.eye {
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #6b7280;
+}
+
+.return-login {
+  display: block;
+
+  text-align: right;
+
+  font-weight: 600;
+
+  font-size: 15px;
+
+  color: #6a1b9a;
+
+  margin-bottom: 20px;
+
+  text-decoration: none;
+}
+
+.return-login:hover {
+  text-decoration: underline;
+}
+  
+  .btn-primary {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background 0.3s;
+  box-shadow: 0 6px 18px rgba(211, 72, 0, 0.25);
+  margin-bottom: 10px;
+}
+

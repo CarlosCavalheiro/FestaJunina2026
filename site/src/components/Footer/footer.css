@@ -1,0 +1,94 @@
+footer {
+    background-color: brown;
+    width: 100%;
+    padding: 5vh 3vw;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.links-footer {
+    display: flex;
+    flex-direction: row; 
+    gap: 14vw; 
+}
+
+.links-footer div {
+    display: flex;
+    flex-direction: column; 
+}
+
+.sobre-footer {
+    color: white;
+    font-size: 2.5vh;
+    margin-bottom: 1vh;
+    font-weight: bold;
+}
+
+.links-footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 2.2vh;
+    margin-bottom: 0.5vh;
+}
+
+.links-footer a:hover {
+    text-decoration: underline;
+    opacity: 10;
+}
+
+.icon-social {
+    height: 3vh;
+    width: 1.5vw;
+    margin: 0.2vw;
+}
+
+.logo-footer {
+    height: 22vh;
+    width: auto;
+    margin-left: 2vw; 
+}
+
+.direitos {
+    color: white;
+    font-size: 2vh;
+    text-align: center;
+    margin-top: 2vh;
+    font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+    .links-footer {
+        gap: 8vw;
+    }
+
+    .logo-footer {
+        height: 20vh;
+        margin: 0;
+    }
+
+    .icon-social {
+        width: 2.5vw;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .links-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 4vh;
+        text-align: center;
+    }
+
+    .logo-footer {
+        height: 15vh;
+        margin: 0;
+    }
+
+    .icon-social {
+        width: 3.5vw;
+        height: auto;
+    }
+}

@@ -1,0 +1,285 @@
+.card_formulario{
+    background-color: #ffffff;
+    margin: 6vh auto;
+    width: 90%;
+    max-width: 80vw;
+    border-radius: 2vh;
+    padding: 4vh;
+    box-shadow: 0 1vh 3vh rgba(34, 39, 192, 0.12);
+    font-family: Arial, Helvetica, sans-serif;
+    flex: 1;
+}
+
+.h1Form{
+    text-align: center;
+    font-size: clamp(2.5vh, 3vw, 4vh);
+    color: #000000;
+}
+
+.labelForm{
+    font-size: 2.6vh;
+    font-weight: bold;
+    color: #333;
+}
+
+.selectForm{
+    width: 100%;
+    padding: 1.5vh;
+    border-radius: 1vh;
+    margin-top: 1vh;
+    border: 0.2vh solid #000000;
+    outline: none;
+    font-size: 2vh;
+}
+
+.fundo{
+    border-radius: 2vh;
+    padding: clamp(1.5vh, 2vw, 2.5vh);
+    margin-top: 2vh;
+    transition: 0.2s;
+}
+
+.fundo:hover{
+    transform: scale(1.01);
+}
+
+.fundo p{
+    font-weight: bold;
+    margin-bottom: 1vh;
+}
+
+.fundo2{
+    border-radius: 2vh;
+    margin-top: 2vh;
+    width: 100%;
+    font-weight: bold;
+}
+
+.fundo2 span{
+    display: block;
+    margin-bottom: 1vh;
+}
+
+.grupo-botoes{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vh;
+    margin-top: 1vh;
+}
+
+.btn-opcao{
+    padding: 1vh 2vh;
+    border-radius: 2vh;
+    border: 0.2vh solid #2227c0;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 1.6vh;
+    color: #333;
+}
+
+.Sugestao{
+    width: 100%;
+    min-height: 10vh;
+    padding: 1.5vh;
+    border-radius: 1.5vh;
+    border: 0.2vh solid #e4e6ff;
+    font-size: 1.6vh;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttonForm{
+    width: 100%;
+    padding: 1.5vh;
+    border-radius: 1vh;
+    border: none;
+    background: #fa3736;
+    color: white;
+    margin-top: 3vh;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.8vh;
+    transition: 0.3s;
+}
+
+.buttonForm:hover{
+    transform: translateY(-0.5vh);
+    box-shadow: 0 1vh 2vh rgba(250, 55, 54, 0.4);
+}
+
+.campos.error{
+    border: 0.3vh solid red;
+}
+
+.campos .aviso{
+    display: none;
+    color: red;
+    font-size: 1.5vh;
+    margin-bottom: 1vh;
+}
+
+.campos.error .aviso{
+    display: block;
+}
+
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-content{
+    background: #fff;
+    padding: 3vh;
+    border-radius: 2vh;
+    text-align: center;
+    width: 90%;
+    max-width: 40vh;
+}
+
+.popup-content p{
+    font-size: 2vh;
+    margin-bottom: 2vh;
+    color: #2227c0;
+    font-weight: bold;
+}
+
+.popup-content button{
+    padding: 1vh 2vh;
+    border: none;
+    border-radius: 2vh;
+    background: #fa3736;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px){
+    .card_formulario{
+        width: 95%;
+        max-width: 90vw;
+        padding: 3vh;
+    }
+
+    .h1Form{
+        font-size: 3vh;
+    }
+
+    .btn-opcao{
+        font-size: 1.4vh;
+        padding: 1vh 1.5vh;
+    }
+}
+
+.fundo p,
+.fundo2 span{
+    font-size: 2.5vh;
+    margin-bottom: 2vh;
+}
+
+.grupo-botoes{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+    margin-top: 2vh;
+}
+
+.btn-opcao{
+    padding: 2vh 3vh;
+    border-radius: 3vh;
+    border: none;
+    cursor: pointer;
+    font-size: 2vh;
+    font-weight: 600;
+    transition: 0.2s;
+    min-width: 12vh;
+}
+
+.btn-excelente{
+    background: #b9fbc0;
+}
+
+.btn-otimo{
+    background: #a0c4ff;
+}
+
+.btn-boa{
+    background: #fff3b0;
+}
+
+.btn-regular{
+    background: #ffd6a5;
+}
+
+.btn-ruim{
+    background: #ffadad;
+}
+
+.btn-excelente.ativo{
+    background: #0c975b;
+    color: white;
+}
+
+.btn-otimo.ativo{
+    background: #3a86ff;
+    color: white;
+}
+
+.btn-boa.ativo{
+    background: #e7e411;
+    color: white;
+}
+
+.btn-regular.ativo{
+    background: #ff9215;
+    color: white;
+}
+
+.btn-ruim.ativo{
+    background: #e63946;
+    color: white;
+}
+
+.btn-numero{
+    background: #e0e0e0;
+    color: #333;
+    border: 0.2vh solid #ccc;
+}
+
+.btn-numero.ativo{
+    background: #9e9e9e;
+    color: white;
+}
+.btn-sim{
+    background: #b9fbc0;
+}
+
+.btn-talvez{
+    background: #fff3b0;
+}
+
+.btn-nao{
+    background: #ffadad;
+}
+
+.btn-sim.ativo{
+    background: #0c975b;
+    color: white;
+}
+
+.btn-talvez.ativo{
+    background: #e7e411;
+    color: white;
+}
+
+.btn-nao.ativo{
+    background: #e63946;
+    color: white;
+}

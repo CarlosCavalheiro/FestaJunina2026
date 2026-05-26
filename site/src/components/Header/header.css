@@ -1,0 +1,411 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: brown;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  min-height: 90px;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/*Menu*/
+.menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.btn-menu {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 6vh;
+  cursor: pointer;
+  padding: 1.5vh 2vw;
+}
+
+.links-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 12vw;
+  background-color: #f5f5f5;
+  border-radius: 2vh;
+  box-shadow: 0 1vh 2vh brown;
+}
+
+.links-menu button {
+  display: block;
+  width: 100%;
+  padding: 2vh;
+  background: none;
+  border: none;
+  text-align: left;
+  color: black;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.links-menu button:hover {
+  background-color: brown;
+  color: white;
+  border-radius: 2vh;
+}
+
+.links-menu a {
+  display: block;
+  padding: 2vh;
+  text-decoration: none;
+  color: black;
+}
+
+.links-menu a:hover {
+  background-color: brown;
+  color: white;
+  border-radius: 2vh;
+}
+
+.menu:hover .links-menu {
+  display: block;
+}
+
+.menu-txt {
+  display: none;
+  position: absolute;
+  top: 100%;
+  min-width: 30%;
+  background-color: aliceblue;
+  border: 2% solid #c53d3d;
+  z-index: 10;
+  color: black;
+  padding: 20px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.menu-txt a:hover {
+  background-color: #c53d3d;
+  color: aliceblue;
+}
+
+.menu:hover .menu-txt {
+  display: block;
+}
+
+/*img*/
+.logo {
+  height: 100px;
+  width: auto;
+  margin-left: 2vw;
+  cursor: pointer;
+}
+
+.login {
+  height: 6vh;
+  width: auto;
+}
+
+/*Login*/
+.conta {
+  margin-left: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opcoes-login {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 10vw;
+  background-color: #f5f5f5;
+  border: 0.2vh solid brown;
+  box-shadow: 0 2vh 3vh rgba(0, 0, 0, 0.2);
+}
+
+.opcoes-login a {
+  display: block;
+  padding: 2vh;
+  text-decoration: none;
+  color: black;
+}
+
+.opcoes-login a:hover {
+  background-color: brown;
+  color: white;
+}
+
+.conta:hover .opcoes-login {
+  display: block;
+}
+
+.conta-txt {
+  display: none;
+  position: absolute;
+  top: 100%;
+  min-width: 30%;
+  background-color: aliceblue;
+  border: 2% solid #c53d3d;
+  z-index: 10;
+  color: black;
+  padding: 20px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.conta-txt a:hover {
+  background-color: #c53d3d;
+  color: aliceblue;
+}
+
+.conta:hover .conta-txt {
+  display: block;
+}
+
+/* MENU PRINCIPAL */
+.menu-perfil {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 20vw;
+  min-width: 250px;
+  max-width: 320px;
+  background-color: #f5f5f5;
+  border-radius: 2vh;
+  padding: 2vh 1.5vw;
+  box-shadow: 0 2vh 4vh brown;
+  z-index: 9999;
+}
+
+/* CONTAINER PERFIL */
+.perfil-container {
+  text-align: center;
+}
+
+/* AVATAR */
+.avatar-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.editar-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  opacity: 0;
+  transition: 0.3s ease;
+  display: grid;
+  place-items: center;
+}
+
+.editar-overlay::before {
+  content: "✎";
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.avatar-wrapper:hover .editar-overlay {
+  opacity: 1;
+}
+
+/* TEXTO */
+.perfil-titulo {
+  color: black;
+  margin: 1.5vh 0;
+  font-size: 2vh;
+}
+
+/* BOTÃO CRIAR CONTA */
+.btn-criar-conta {
+  background: transparent;
+  border: 0.2vh solid brown;
+  color: black;
+  border-radius: 2vh;
+  padding: 1vh 1vw;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.8vh;
+}
+
+@media (max-width: 768px) {
+  .links-menu {
+    width: 20vw;
+  }
+
+  .conta {
+    position: relative;
+  }
+
+  .opcoes-login {
+    right: 0;
+    left: auto;
+    width: 15vw;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .logo {
+    height: 70px;
+  }
+
+  .btn-menu {
+    font-size: 5vh;
+  }
+
+  .links-menu {
+    width: 50vw;
+  }
+
+  .conta {
+    position: relative;
+  }
+
+  .opcoes-login {
+    right: 0;
+    left: auto;
+    width: 35vw;
+    min-width: 120px;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.modal-foto {
+  width: 90%;
+  max-width: 420px;
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: aparecerModal 0.25s ease;
+}
+
+.modal-foto h2 {
+  text-align: center;
+  color: var(--primary-color);
+  color: var(--primary-color);
+  font-family: var(--font-heading);
+}
+
+.modal-foto input {
+  width: 100%;
+}
+
+.botoes-modal {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-upload,
+.btn-cancelar {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-upload {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-cancelar {
+  background: #e9e9e9;
+}
+
+.editar-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 6px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.avatar-wrapper {
+  position: relative;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+}
+
+.avatar-wrapper:hover .editar-overlay {
+  opacity: 1;
+}
+
+@keyframes aparecerModal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.bemvindo {
+  color: white;
+  padding-right: 5vh;
+  font-weight: 700;
+}

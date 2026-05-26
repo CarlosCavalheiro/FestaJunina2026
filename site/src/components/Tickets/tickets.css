@@ -1,0 +1,150 @@
+/* Container Principal */
+.garantaing {
+  width: 100%;
+  max-width: 900px;
+  border: solid 0.2vw #fbe64a;
+  border-radius: 2vh;
+  box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.05);
+  color: black;
+  padding: 5vh 3vw;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.titulo-lote {
+  text-align: center;
+  margin-bottom: 4vh;
+  font-size: 4vh;
+}
+
+/* Área das linhas */
+.box {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.2vw solid #fbe64a;
+  padding: 2vh 2vw;
+  margin-bottom: 3vh;
+  border-radius: 5vh;
+}
+
+.label {
+  font-size: 2.5vh;
+}
+
+/* Controles (+ e -) */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.controls button {
+  width: 4vh;
+  height: 4vh;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 2vh;
+  cursor: pointer;
+  border-radius: 0.8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-menos {
+  background: #ff4d4d;
+}
+
+.btn-mais {
+  background: #2ecc71;
+}
+
+.qty {
+  font-weight: bold;
+  font-size: 2.5vh;
+  min-width: 2vw;
+  text-align: center;
+}
+
+/* Seção de Forma de Pagamento */
+.payment-method {
+  margin-top: 3vh;
+  padding: 2vh;
+  border: 0.2vw solid #fbe64a;
+  border-radius: 1vh;
+  background-color: #f9f9f9;
+}
+
+.payment-method > label {
+  display: block;
+  font-size: 2.2vh;
+  font-weight: bold;
+  margin-bottom: 1.5vh;
+  color: black;
+}
+
+.payment-options {
+  display: flex;
+  gap: 3vw;
+}
+
+.payment-options label {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  font-size: 2vh;
+  cursor: pointer;
+}
+
+.payment-options input[type="radio"] {
+  width: 2vh;
+  height: 2vh;
+  cursor: pointer;
+  accent-color: #fbd334;
+}
+
+/* Linha de Total */
+.linha-total {
+  margin-top: 2vh;
+  display: flex;
+  justify-content: center;
+}
+
+.total-label {
+  display: flex;
+  gap: 5vw;
+  font-size: 2.8vh;
+}
+
+/* Botão Prosseguir */
+.prossegir-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+}
+
+.btn-prosseguir {
+  width: 30vw;
+  max-width: 220px;
+  height: 6vh;
+  background-color: #fbd334;
+  color: black;
+  font-size: 2vh;
+  border-radius: 1vh;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-prosseguir:hover {
+  transform: scale(1.05);
+}

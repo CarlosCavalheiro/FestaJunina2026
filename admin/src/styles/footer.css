@@ -1,0 +1,77 @@
+footer {
+  background-color: rgb(96, 94, 110);
+  width: 100%;
+  padding: 5vh 3vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.links-footer {
+  display: flex;
+  flex-direction: row;
+  gap: 14vw;
+}
+
+.links-footer div {
+  display: flex;
+  flex-direction: column;
+}
+
+.sobre-footer {
+  color: rgb(255, 255, 255);
+  font-size: 2.5vh;
+  margin-bottom: 1vh;
+  font-weight: bold;
+}
+
+.links-footer a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 2.2vh;
+  margin-bottom: 0.5vh;
+}
+
+.links-footer a:hover {
+  text-decoration: underline;
+  opacity: 10;
+}
+
+.icon-social {
+  height: 3vh;
+  width: 1.5vw;
+  margin: 0.2vw;
+}
+
+.logo-footer {
+  height: 22vh;
+  width: auto;
+  margin-left: 2vw;
+}
+
+.redesSociais {
+  display: flex;
+}
+
+.redesSociais img {
+  margin-right: 10%;
+}
+
+/* Responsividade  */
+@media (max-width: 768px) {
+  .links-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3vh;
+  }
+
+  .logo-footer {
+    height: 12vh;
+    margin: 0;
+  }
+
+  .icon-social {
+    height: 2.5vh;
+    width: 2.5vh;
+  }
+}

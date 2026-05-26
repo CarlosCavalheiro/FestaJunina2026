@@ -1,0 +1,13 @@
+{
+  "name": "festajunina2026",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "install:all": "npm --prefix site install && npm --prefix admin install && npm --prefix portaria install && npm --prefix pesquisa install",
+    "build": "npm --prefix site run build && npm --prefix admin run build && npm --prefix portaria run build && npm --prefix pesquisa run build",
+    "dev:site": "npm --prefix site run dev",
+    "dev:admin": "npm --prefix admin run dev",
+    "dev:portaria": "npm --prefix portaria run dev",
+    "dev:pesquisa": "npm --prefix pesquisa run dev"
+  }
+}

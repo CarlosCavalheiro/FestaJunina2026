@@ -1,0 +1,141 @@
+.corpo {
+  background-color: rgb(241, 240, 237);
+}
+
+header {
+  background-color: rgb(198, 18, 18);
+  height: 13vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vh 2vw;
+  position: relative;
+  z-index: 10;
+}
+
+.menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.btn-menu {
+  background: none;
+  border: none;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  padding: 1.5vh 2vw;
+  font-size: 4vh;
+}
+
+.links-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 12vw;
+  background-color: rgb(245, 245, 245);
+  border: 0.2vh solid rgb(165, 42, 42);
+  box-shadow: 0 2vh 3vh rgba(0, 0, 0, 0.2);
+}
+
+.links-menu a {
+  display: block;
+  padding: 2vh;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.links-menu a:hover {
+  background-color: rgb(198, 18, 18);
+  color: rgb(255, 255, 255);
+}
+
+.menu:hover .links-menu {
+  display: block;
+}
+
+.logo {
+  height: 15vh;
+  width: 18vh;
+}
+
+.conta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  position: relative;
+  height: 100%;
+  padding-right: 2vw;
+}
+
+.login {
+  height: 6vh;
+  width: 6vh;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.opcoes-login {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 10vw;
+  background-color: rgb(245, 245, 245);
+  border: 0.2vh solid rgb(165, 42, 42);
+  box-shadow: 0 2vh 3vh rgba(0, 0, 0, 0.2);
+}
+
+.opcoes-login a {
+  display: block;
+  padding: 2vh;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.opcoes-login a:hover {
+  background-color: rgb(220, 37, 37);
+  color: rgb(255, 255, 255);
+}
+
+.conta:hover .opcoes-login {
+  display: block;
+}
+
+.usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nome-usuario {
+  color: white;
+  font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .logo {
+    padding: 0 2vw 1vh;
+    margin-top: 2%;
+    height: 10vh;
+    width: auto;
+  }
+
+  .opcoes-login {
+    width: 20vh;
+  }
+
+  .links-menu {
+    width: 20vh;
+  }
+
+  .login {
+    height: 5vh;
+    width: 5vh;
+  }
+}

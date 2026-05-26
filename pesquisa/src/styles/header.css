@@ -1,0 +1,18 @@
+header {
+    background-color: brown;
+    height: 10.5vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1vh 2vw;
+    position: relative; 
+    z-index: 10;     
+    padding: 20px 0;
+    margin-bottom: 30px;   
+}
+
+.logo {
+    height: 19vh;
+    width: auto;
+    margin-left: 2vw;  
+}

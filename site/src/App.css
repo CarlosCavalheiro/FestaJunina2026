@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* INGRESSOS */
+.ingressos {
+  width: fit-content;
+  max-width: 90%;
+  background: linear-gradient(90deg, #fbe64a, #fbd640);
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  transition: 0.3s ease;
+  text-align: center;
+  cursor: default; 
+  margin: 0 auto;
+}
+
+.ingressos p {
+  margin: 0;
+  color: #111;
+  font-size: clamp(16px, 2vw, 32px);
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  word-break: break-word;
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+  .ingressos {
+    padding: 0.9rem 2rem;
+    border-radius: 40px;
+  }
+  .ingressos p {
+    font-size: 20px;
+  }
+}
+
+/* CELULAR */
+@media (max-width: 480px) {
+  .ingressos {
+    width: 90%;
+    padding: 0.8rem 1rem;
+    border-radius: 30px;
+  }
+
+    .ingressos p {
+        font-size: 16px;
+        letter-spacing: 0;
+    }
+}
+
+
+/* MeusIngressos.css */
+.btn-Pagar {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-top: 8vh;
+    margin-bottom: 10vh;
+}
+
+.PHIngressos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.titleMeusIngressos {
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+    text-align: center;
+}
+
+.titleComprovante {
+    font-weight: bold;
+    font-size: 18px;
+    color: rgb(94, 94, 94);
+    text-align: center;
+}
+
+.botaopagar {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #0aa51f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s ease;
+}
+.botaopagar:hover {
+    background-color: green;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.botaopagar:active {
+    transform: scale(0.97);
+}
+
+.valorTotal {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 18px;
+    background-color: rgb(149, 149, 149);
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.comprovante {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.Palert {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgb(94, 94, 94);
+    text-align: center;
+}

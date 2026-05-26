@@ -1,0 +1,133 @@
+/*Reserva.jsx*/
+.meusIngrTitulo {
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+}
+
+.meusIngrLotes {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(127, 127, 127);
+}
+
+.meusIngrTotal {
+    margin-top: 5px;
+    font-size: 16px;
+    font-style: italic;
+    color: rgb(127, 127, 127);
+}
+
+.meusIngrValor {
+    margin-top: 5px;
+    font-size: 16px;
+    font-style: italic;
+    color: rgb(127, 127, 127);
+}
+
+.ticket {
+    background-color: rgb(234, 234, 234);
+    border-radius: 15px;
+    box-shadow: 6px 6px 10px rgb(56, 56, 56);
+}
+
+.PH {
+    width: auto;
+    height: auto;
+}
+
+.PHInfo {
+    font-size: 16px;
+    color: rgb(127, 127, 127);
+    margin-top: 10px;
+    text-align: center;
+}
+
+.ingr {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 200px;
+    height: 320px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+   
+}
+
+    /*Um ingresso pode receber essas bordas dependo do status*/
+    .aguardando {
+        border: 3px solid #d4af37;
+    }
+
+    .verificando {
+        border: 3px solid #3498db;
+    }
+
+    .pago {
+        border: 3px solid #2ecc71;
+    }
+
+    .cancelado {
+        border: 3px solid #e74c3c;
+    }
+
+
+    /*Imagens dos ingressos dependendo do status*/
+    .block {
+        width: 135px;
+        margin-left: 10px;
+        -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
+        mask-image: radial-gradient(circle, black 80%, transparent 100%);
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .IngCancelado {
+        width: 160px; 
+    }
+
+    .QRValido {
+        width: 164px; 
+        margin-top: -18px; 
+        margin-left: -4px
+    }
+
+.statusPedido {
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(138, 138, 138);
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ingrId {
+    font-size: 1.25rem;
+}
+
+.ingrVT {
+    font-size: 1.10rem;
+    margin-top: 10px;
+}
+
+.ingrVT2 {
+    margin-top: 6px;
+    font-size: 0.90rem;
+}
+ 
+.prossegir-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.btn-pagar {
+    margin-Top: 20px;
+    margin-bottom: 10px;
+    font-Size: 1.5rem;
+    background: purple; 
+    border: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}

@@ -1,0 +1,150 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5efe9;
+}
+
+body {
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 40px 20px;
+}
+
+.card {
+  background-color: #fdf2e9;
+  border: 0.4rem solid #e67e22;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-header h1 {
+  color: #e67e22;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.qr-area {
+  background-color: #fff;
+  border: 2px dashed #f4a300;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 0 auto 1.5rem auto; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+
+#leitor {
+  width: 220px !important; 
+  height: 220px !important;
+  margin: 0 auto !important;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+#leitor video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; 
+}
+
+.qr-area h2 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.btn-verificar {
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.popup-box {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  min-width: 300px;
+  text-align: center;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.popup-box h3 {
+  margin-bottom: 15px;
+}
+
+.popup-box button {
+  margin-top: 20px;
+  padding: 10px 25px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: brown;
+  color: white;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  header { height: 65px; }
+  .logo { height: 80px; }
+  .container { padding-top: 60px; align-items: flex-start; }
+  .card { padding: 1.5rem 1rem; }
+  
+  #leitor { 
+    width: 180px !important; 
+    height: 180px !important;
+  }
+}
