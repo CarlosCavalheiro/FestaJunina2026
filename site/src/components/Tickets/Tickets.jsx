@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Tickets.css";
+import "./tickets.css";
 import Modal from "../Modal/Modal";
 import ModalTicket from "../Modal/modalTicket";
 import Api from "../../services/api";
