@@ -140,6 +140,14 @@ export default function Dashboard() {
     );
   }, [ingressos, filtroLote]);
 
+  const lotesFiltradosPorLote = useMemo(() => {
+    if (!filtroLote) return lotes;
+
+    return lotes.filter(
+      (lote) => Number(lote.idLote) === Number(filtroLote),
+    );
+  }, [lotes, filtroLote]);
+
   const pedidosFiltradosPorLote = useMemo(() => {
     if (!filtroLote) return pedidos;
 
@@ -272,6 +280,37 @@ export default function Dashboard() {
     ];
   }, [ingressosFiltradosPorLote]);
 
+  const totalIngressosDisponiveis = useMemo(() => {
+    return lotesFiltradosPorLote.reduce(
+      (acc, lote) => acc + Number(lote.qtdeIngressosLotes || 0),
+      0,
+    );
+  }, [lotesFiltradosPorLote]);
+
+  const ingressosVendidosOuReservados =
+    ingressosFiltradosPorLote.length;
+
+  const ingressosNaoVendidos = Math.max(
+    totalIngressosDisponiveis - ingressosVendidosOuReservados,
+    0,
+  );
+
+  const dadosVisaoGeralIngressos = useMemo(() => {
+    return [
+      {
+        nome: "Vendidos/Reservados",
+        valor: ingressosVendidosOuReservados,
+      },
+      {
+        nome: "Não vendidos",
+        valor: ingressosNaoVendidos,
+      },
+    ];
+  }, [
+    ingressosVendidosOuReservados,
+    ingressosNaoVendidos,
+  ]);
+
   const perguntasFiltradas = useMemo(() => {
     if (!filtroTipoUsuario) return respostas;
 
@@ -306,7 +345,15 @@ export default function Dashboard() {
   const renderPercentLabel = ({
     percent,
     nome,
-  }) => `${nome}: ${(percent * 100).toFixed(1)}%`;
+    value,
+    payload,
+  }) => {
+    const valorAbsoluto = Number(
+      value ?? payload?.valor ?? 0,
+    );
+
+    return `${nome}: ${(percent * 100).toFixed(1)}%, ${valorAbsoluto}`;
+  };
 
   const renderTooltipPercent = (
     value,
@@ -321,7 +368,23 @@ export default function Dashboard() {
         ? ((value / total) * 100).toFixed(1)
         : 0;
 
-    return [`${porcentagem}%`, name];
+    return [`${porcentagem}% (${Number(value)})`, name];
+  };
+
+  const prepararDadosGrafico = (dados) => {
+    const dadosComValor = dados.filter(
+      (item) => Number(item.valor) > 0,
+    );
+
+    const total = dadosComValor.reduce(
+      (acc, curr) => acc + Number(curr.valor || 0),
+      0,
+    );
+
+    return dadosComValor.map((item) => ({
+      ...item,
+      total,
+    }));
   };
 
   const possuiDadosGrafico = dadosPedidos.some(
@@ -338,6 +401,11 @@ export default function Dashboard() {
 
   const possuiDadosUtilizacao =
     dadosUtilizacao.some(
+      (item) => item.valor > 0,
+    );
+
+  const possuiDadosVisaoGeralIngressos =
+    dadosVisaoGeralIngressos.some(
       (item) => item.valor > 0,
     );
 
@@ -560,6 +628,10 @@ export default function Dashboard() {
                     ingressosFiltradosPorLote.length
                   }
                 </p>
+
+                <span className="subvalor_card_dashboard">
+                  de {totalIngressosDisponiveis} disponíveis
+                </span>
               </div>
 
               <FaTicketAlt className="icone-card" />
@@ -577,15 +649,9 @@ export default function Dashboard() {
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
-              data={dadosPedidos
-                .filter((item) => item.valor > 0)
-                .map((item) => ({
-                  ...item,
-                  total: dadosPedidos.reduce(
-                    (acc, curr) => acc + curr.valor,
-                    0,
-                  ),
-                }))}
+              data={prepararDadosGrafico(
+                dadosPedidos,
+              )}
               dataKey="valor"
               nameKey="nome"
               cx="50%"
@@ -595,9 +661,9 @@ export default function Dashboard() {
               paddingAngle={4}
               label={renderPercentLabel}
             >
-              {dadosPedidos
-                .filter((item) => item.valor > 0)
-                .map((entry, index) => (
+              {prepararDadosGrafico(
+                dadosPedidos,
+              ).map((entry, index) => (
                   <Cell
                     key={index}
                     fill={COLORS[index % COLORS.length]}
@@ -619,22 +685,16 @@ export default function Dashboard() {
   </div>
 
   <div className="grafico-card">
-    <h3>Ingressos por Lotes</h3>
+    <h3>Ingressos por lotes (vendidos/reservados)</h3>
 
     <div className="grafico-container">
       {possuiDadosLotes ? (
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
-              data={dadosLotes
-                .filter((item) => item.valor > 0)
-                .map((item) => ({
-                  ...item,
-                  total: dadosLotes.reduce(
-                    (acc, curr) => acc + curr.valor,
-                    0,
-                  ),
-                }))}
+              data={prepararDadosGrafico(
+                dadosLotes,
+              )}
               dataKey="valor"
               nameKey="nome"
               cx="50%"
@@ -644,9 +704,9 @@ export default function Dashboard() {
               paddingAngle={4}
               label={renderPercentLabel}
             >
-              {dadosLotes
-                .filter((item) => item.valor > 0)
-                .map((entry, index) => (
+              {prepararDadosGrafico(
+                dadosLotes,
+              ).map((entry, index) => (
                   <Cell
                     key={index}
                     fill={COLORS[index % COLORS.length]}
@@ -675,15 +735,9 @@ export default function Dashboard() {
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
-              data={dadosTipos
-                .filter((item) => item.valor > 0)
-                .map((item) => ({
-                  ...item,
-                  total: dadosTipos.reduce(
-                    (acc, curr) => acc + curr.valor,
-                    0,
-                  ),
-                }))}
+              data={prepararDadosGrafico(
+                dadosTipos,
+              )}
               dataKey="valor"
               nameKey="nome"
               cx="50%"
@@ -693,9 +747,9 @@ export default function Dashboard() {
               paddingAngle={4}
               label={renderPercentLabel}
             >
-              {dadosTipos
-                .filter((item) => item.valor > 0)
-                .map((entry, index) => (
+              {prepararDadosGrafico(
+                dadosTipos,
+              ).map((entry, index) => (
                   <Cell
                     key={index}
                     fill={COLORS[index % COLORS.length]}
@@ -724,15 +778,9 @@ export default function Dashboard() {
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
-              data={dadosUtilizacao
-                .filter((item) => item.valor > 0)
-                .map((item) => ({
-                  ...item,
-                  total: dadosUtilizacao.reduce(
-                    (acc, curr) => acc + curr.valor,
-                    0,
-                  ),
-                }))}
+              data={prepararDadosGrafico(
+                dadosUtilizacao,
+              )}
               dataKey="valor"
               nameKey="nome"
               cx="50%"
@@ -742,14 +790,57 @@ export default function Dashboard() {
               paddingAngle={4}
               label={renderPercentLabel}
             >
-              {dadosUtilizacao
-                .filter((item) => item.valor > 0)
-                .map((entry, index) => (
+              {prepararDadosGrafico(
+                dadosUtilizacao,
+              ).map((entry, index) => (
                   <Cell
                     key={index}
                     fill={COLORS[index % COLORS.length]}
                   />
                 ))}
+            </Pie>
+
+            <Tooltip formatter={renderTooltipPercent} />
+
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      ) : (
+        <div className="sem_dados_dashboard">
+          Nenhum dado disponível.
+        </div>
+      )}
+    </div>
+  </div>
+
+  <div className="grafico-card">
+    <h3>Visão geral dos ingressos</h3>
+
+    <div className="grafico-container">
+      {possuiDadosVisaoGeralIngressos ? (
+        <ResponsiveContainer width="100%" height={350}>
+          <PieChart>
+            <Pie
+              data={prepararDadosGrafico(
+                dadosVisaoGeralIngressos,
+              )}
+              dataKey="valor"
+              nameKey="nome"
+              cx="50%"
+              cy="50%"
+              outerRadius={110}
+              innerRadius={60}
+              paddingAngle={4}
+              label={renderPercentLabel}
+            >
+              {prepararDadosGrafico(
+                dadosVisaoGeralIngressos,
+              ).map((entry, index) => (
+                <Cell
+                  key={index}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
             </Pie>
 
             <Tooltip formatter={renderTooltipPercent} />

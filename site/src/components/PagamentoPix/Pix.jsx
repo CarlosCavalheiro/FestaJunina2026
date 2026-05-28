@@ -1,7 +1,6 @@
 import QRPix from "../../assets/qrcode-pix.webp";
 import { useState } from "react";
 import { useEffect } from "react";
-import Modal from "../Modal/Modal";
 import Api from "../../services/api";
 import "./Pix.css";
 
@@ -35,7 +34,12 @@ export default function Pix({ item, onClose }) {
         localStorage.getItem("idUsuario") ??
         null;
 
-    const IdPedido = item.idPedido;
+    const IdPedido =
+        item?.idPedido ??
+        item?.IdPedido ??
+        item?.pedidoId ??
+        item?.PedidoId ??
+        null;
 
     const copiarChavePix = async () => {
         const chavePix = "05.766.694/0001-96";
@@ -76,6 +80,11 @@ export default function Pix({ item, onClose }) {
             return;
         }
 
+        if (!IdPedido) {
+            alert("Não foi possível identificar o pedido para envio do comprovante.");
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -84,26 +93,24 @@ export default function Pix({ item, onClose }) {
             const formData = new FormData();
             formData.append("file", selectedFile);
 
-            const response = await Api.post(ENDPOINT_FT_COMPROVANTE, formData, 
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+            const response = await Api.post(ENDPOINT_FT_COMPROVANTE, formData, {
                 params: {
                     id: IdPedido,
                 },
             });
 
-            if (response.status === 200) {
-            alert("Comprovante enviado com sucesso!");
-            setLoading(false);
-            onClose();
-        }
+            if (response.status >= 200 && response.status < 300) {
+                alert("Comprovante enviado com sucesso!");
+                onClose();
+                return;
+            }
+
+            alert("Não foi possível confirmar o envio do comprovante.");
         } catch (erro) {
             console.error("Erro ao enviar comprovante PIX:", erro);
             alert("Falha ao enviar comprovante. Tente novamente.");
+        } finally {
             setLoading(false);
-            return;
         }
     };
 

@@ -112,6 +112,13 @@
   color: rgb(17, 24, 39);
 }
 
+.subvalor_card_dashboard {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
 .filtros_dashboard {
   background: white;
   border-radius: 24px;

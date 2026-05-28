@@ -151,3 +151,44 @@ body,
     color: rgb(94, 94, 94);
     text-align: center;
 }
+
+@media (max-width: 768px) {
+  .btn-Pagar {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5vh;
+    margin-bottom: 6vh;
+    padding: 0 12px;
+  }
+
+  .valorTotal {
+    width: 100%;
+    max-width: 420px;
+    margin-right: 0 !important;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .botaopagar {
+    width: 100%;
+    max-width: 420px;
+    font-size: 16px;
+  }
+
+  .comprovante {
+    padding: 0 12px;
+  }
+
+  .comprovante a {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    display: inline-block;
+    word-break: break-word;
+  }
+
+  .Palert {
+    max-width: 560px;
+    line-height: 1.4;
+  }
+}

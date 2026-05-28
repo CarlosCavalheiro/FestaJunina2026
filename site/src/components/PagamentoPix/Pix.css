@@ -204,6 +204,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
   animation: fadeIn 0.3s ease;
 }
 
@@ -236,8 +238,10 @@
 .modal-overlay-pix .card {
   position: relative;
   max-width: 800px;
-  width: 90%;
-  margin: 20px;
+  width: min(92vw, 800px);
+  margin: 0;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   animation: slideUp 0.3s ease;
 }
 
@@ -284,43 +288,112 @@ body.modal-open {
 }
 
 @media (max-width: 767px) {
-  div.card {
-    transform: scale(0.55);
-    margin-left: 4.75vh !important;
+  .modal-overlay-pix {
+    padding: 10px;
   }
-  
+
+  .modal-overlay-pix .card {
+    width: 100%;
+    border-radius: 14px;
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .left {
+    align-items: center;
+  }
+
+  .qr-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    margin-bottom: 0;
+  }
+
+  .qr-box img {
+    width: min(62vw, 210px);
+    height: auto;
+  }
+
+  .pix-key-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .pix-key {
+    margin-top: 0;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  .copy-pix-btn {
+    width: 100%;
+  }
+
   .right {
+    margin-top: 0;
     margin-right: 0;
+    gap: 12px;
   }
-  
+
+  .input-top {
+    height: auto;
+    min-height: 40px;
+  }
+
+  .upload-box {
+    padding: 12px;
+  }
+
+  .upload-box input {
+    font-size: 13px;
+  }
+
   .valorTotal-Pix {
     font-size: 14px;
-    padding: 10px 16px;
+    padding: 10px 12px;
+    text-align: center;
   }
-  
+
   .action-btn {
-    padding: 10px 20px;
-    font-size: 12px;
+    width: 100%;
+    align-self: stretch;
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+
+  .close-modal-btn {
+    top: 4px;
+    right: 10px;
+    font-size: 28px;
   }
 }
 
 @media (max-width: 480px) {
-  .card {
-    flex-direction: column;
-    align-items: center;
+  .modal-overlay-pix .card {
+    border-width: 3px;
+    border-radius: 12px;
+    padding: 12px;
   }
-  
-  .right {
-    width: 100%;
-    margin-right: 0;
+
+  .pix-key {
+    font-size: 12px;
   }
-  
-  .valorTotal-Pix {
-    text-align: center;
+
+  .upload-box span {
+    font-size: 13px;
   }
-  
-  .action-btn {
-    align-self: center;
-    width: 100%;
+
+  .file-selected {
+    font-size: 11px;
+    padding: 4px 6px;
   }
 }

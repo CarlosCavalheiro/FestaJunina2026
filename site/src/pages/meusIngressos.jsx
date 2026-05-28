@@ -31,9 +31,13 @@ export default function MeusIngressos() {
 
   const ENDPOINT_LISTAR_INGRESSOS = "Ingresso/BuscarIngressoPorUsuario";
   
-  const existePedidoPendente = ingressos.some(ingresso => ingresso.pedidoIdStatus === 1);
+  const existePedidoPendente = ingressos.some(
+    (ingresso) => Number(ingresso.pedidoIdStatus) === 1,
+  );
 
-  const ingressosPendentes = ingressos.filter(ingresso => ingresso.pedidoIdStatus === 1); 
+  const ingressosPendentes = ingressos.filter(
+    (ingresso) => Number(ingresso.pedidoIdStatus) === 1,
+  );
   
   const ComprovanteDoPedido = ingressos.find(ingresso => ingresso.pedidoFtComprovante);
   
