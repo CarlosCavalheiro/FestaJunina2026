@@ -366,20 +366,33 @@ export default function Dashboard() {
     return `${(percent * 100).toFixed(1)}%, ${valorAbsoluto}`;
   };
 
-  const renderTooltipPercent = (
-    value,
-    name,
-    props,
-  ) => {
-    const total =
-      props.payload?.payload?.total || 0;
+  const renderTooltipSomenteRotulo = ({
+    active,
+    payload,
+  }) => {
+    if (!active || !payload?.length) {
+      return null;
+    }
 
-    const porcentagem =
-      total > 0
-        ? ((value / total) * 100).toFixed(1)
-        : 0;
+    const nome = payload[0]?.name || "";
+    const cor = payload[0]?.color || "#0f172a";
 
-    return [`${porcentagem}% (${Number(value)})`, name];
+    return (
+      <div
+        style={{
+          background: "#ffffff",
+          border: "1px solid #e2e8f0",
+          borderRadius: "10px",
+          padding: "8px 10px",
+          color: cor,
+          fontWeight: 600,
+          boxShadow:
+            "0 8px 18px rgba(15, 23, 42, 0.12)",
+        }}
+      >
+        {nome}
+      </div>
+    );
   };
 
   const prepararDadosGrafico = (dados) => {
@@ -694,7 +707,7 @@ export default function Dashboard() {
                 ))}
             </Pie>
 
-            <Tooltip formatter={renderTooltipPercent} />
+            <Tooltip content={renderTooltipSomenteRotulo} />
 
             <Legend />
           </PieChart>
@@ -740,7 +753,7 @@ export default function Dashboard() {
                 ))}
             </Pie>
 
-            <Tooltip formatter={renderTooltipPercent} />
+            <Tooltip content={renderTooltipSomenteRotulo} />
 
             <Legend />
           </PieChart>
@@ -783,7 +796,7 @@ export default function Dashboard() {
                 ))}
             </Pie>
 
-            <Tooltip formatter={renderTooltipPercent} />
+            <Tooltip content={renderTooltipSomenteRotulo} />
 
             <Legend />
           </PieChart>
@@ -826,7 +839,7 @@ export default function Dashboard() {
                 ))}
             </Pie>
 
-            <Tooltip formatter={renderTooltipPercent} />
+            <Tooltip content={renderTooltipSomenteRotulo} />
 
             <Legend />
           </PieChart>
@@ -869,7 +882,7 @@ export default function Dashboard() {
               ))}
             </Pie>
 
-            <Tooltip formatter={renderTooltipPercent} />
+            <Tooltip content={renderTooltipSomenteRotulo} />
 
             <Legend />
           </PieChart>
