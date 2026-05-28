@@ -1,18 +1,20 @@
 // src/services/api.js
 import axios from "axios";
 
-const API_ACCESS_POINT = (
-  import.meta.env.VITE_API_URL ||
-  "https://apifestajunina-ayd4h6eabvg2dqhm.brazilsouth-01.azurewebsites.net/"
-).trim();
+const DEFAULT_API_ORIGIN =
+  "https://apifestajunina-ayd4h6eabvg2dqhm.brazilsouth-01.azurewebsites.net/";
+
+const API_ACCESS_POINT = (import.meta.env.VITE_API_URL || DEFAULT_API_ORIGIN).trim();
 
 const normalizedApiAccessPoint = API_ACCESS_POINT.endsWith("/")
   ? API_ACCESS_POINT
   : `${API_ACCESS_POINT}/`;
 
-const API_BASE_URL = normalizedApiAccessPoint.endsWith("api/")
-  ? normalizedApiAccessPoint
-  : `${normalizedApiAccessPoint}api/`;
+const API_BASE_URL = import.meta.env.DEV
+  ? "/api/"
+  : normalizedApiAccessPoint.endsWith("api/")
+    ? normalizedApiAccessPoint
+    : `${normalizedApiAccessPoint}api/`;
 
 const BLOB_UPLOADS_ACCESS_POINT = (
   import.meta.env.VITE_BLOB_UPLOADS_URL ||

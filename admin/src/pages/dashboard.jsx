@@ -209,31 +209,43 @@ export default function Dashboard() {
     { nome: "Cancelados", valor: pedidosCancelados },
   ];
 
-  const dadosLotes = useMemo(() => {
-    const agrupado = {};
+  const dadosLotesDisponibilidade = useMemo(() => {
+    const vendidosPorLote = {};
 
     ingressosFiltradosPorLote.forEach((ingresso) => {
-      const loteEncontrado = lotes.find(
-        (l) =>
-          Number(l.idLote) === Number(ingresso.idLote),
-      );
-
-      const nomeLote =
-        loteEncontrado?.descricao ||
-        ingresso?.lote?.descricao ||
-        `Lote ${ingresso?.idLote || "Sem lote"}`;
-
-      agrupado[nomeLote] =
-        (agrupado[nomeLote] || 0) + 1;
+      const idLote = Number(ingresso.idLote);
+      vendidosPorLote[idLote] =
+        (vendidosPorLote[idLote] || 0) + 1;
     });
 
-    return Object.entries(agrupado).map(
-      ([nome, valor]) => ({
-        nome,
-        valor,
-      }),
-    );
-  }, [ingressosFiltradosPorLote, lotes]);
+    const dados = [];
+
+    lotesFiltradosPorLote.forEach((lote) => {
+      const idLote = Number(lote.idLote);
+      const nomeLote =
+        lote.descricao || `Lote ${idLote}`;
+
+      const vendidos = Number(vendidosPorLote[idLote] || 0);
+      const disponiveis = Math.max(
+        Number(lote.qtdeIngressosLotes || 0) - vendidos,
+        0,
+      );
+
+      dados.push({
+        nome: `${nomeLote} - Vendidos/Reservados`,
+        valor: vendidos,
+        tipo: "vendidos",
+      });
+
+      dados.push({
+        nome: `${nomeLote} - Disponíveis`,
+        valor: disponiveis,
+        tipo: "disponiveis",
+      });
+    });
+
+    return dados;
+  }, [ingressosFiltradosPorLote, lotesFiltradosPorLote]);
 
   const dadosTipos = useMemo(() => {
     const tiposMap = {
@@ -344,7 +356,6 @@ export default function Dashboard() {
 
   const renderPercentLabel = ({
     percent,
-    nome,
     value,
     payload,
   }) => {
@@ -352,7 +363,7 @@ export default function Dashboard() {
       value ?? payload?.valor ?? 0,
     );
 
-    return `${nome}: ${(percent * 100).toFixed(1)}%, ${valorAbsoluto}`;
+    return `${(percent * 100).toFixed(1)}%, ${valorAbsoluto}`;
   };
 
   const renderTooltipPercent = (
@@ -391,9 +402,21 @@ export default function Dashboard() {
     (item) => item.valor > 0,
   );
 
-  const possuiDadosLotes = dadosLotes.some(
+  const possuiDadosLotesDisponibilidade =
+    dadosLotesDisponibilidade.some(
     (item) => item.valor > 0,
-  );
+    );
+
+  const getCorLotesDisponibilidade = (
+    item,
+    index,
+  ) => {
+    if (item?.tipo === "disponiveis") {
+      return "#94a3b8";
+    }
+
+    return COLORS[index % COLORS.length];
+  };
 
   const possuiDadosTipos = dadosTipos.some(
     (item) => item.valor > 0,
@@ -685,15 +708,15 @@ export default function Dashboard() {
   </div>
 
   <div className="grafico-card">
-    <h3>Ingressos por lotes (vendidos/reservados)</h3>
+    <h3>Ingressos por lotes (vendidos x disponíveis)</h3>
 
     <div className="grafico-container">
-      {possuiDadosLotes ? (
+      {possuiDadosLotesDisponibilidade ? (
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
               data={prepararDadosGrafico(
-                dadosLotes,
+                dadosLotesDisponibilidade,
               )}
               dataKey="valor"
               nameKey="nome"
@@ -705,11 +728,14 @@ export default function Dashboard() {
               label={renderPercentLabel}
             >
               {prepararDadosGrafico(
-                dadosLotes,
+                dadosLotesDisponibilidade,
               ).map((entry, index) => (
                   <Cell
                     key={index}
-                    fill={COLORS[index % COLORS.length]}
+                    fill={getCorLotesDisponibilidade(
+                      entry,
+                      index,
+                    )}
                   />
                 ))}
             </Pie>

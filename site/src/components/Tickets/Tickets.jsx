@@ -113,7 +113,13 @@ export default function Ingressos() {
   const MAX_TOTAL = 4;
 
   const [tickets, setTickets] = useState([
-    { nome: "Ingresso Infantil", tipo: 5, preco: 7, qtd: 0 },
+    {
+      nome: "Ingresso Infantil",
+      tipo: 5,
+      preco: 7,
+      qtd: 0,
+      observacao: "Apenas para crianças de 3 a 9 anos",
+    },
     { nome: "Ingresso Aluno", tipo: 4, preco: 14, qtd: 0 },
     { nome: "Ingresso Colaborador", tipo: 2, preco: 14, qtd: 0 },
     { nome: "Ingresso Família", tipo: 1, preco: 14, qtd: 0 },
@@ -377,7 +383,11 @@ export default function Ingressos() {
               {tickets.map((t, i) => (
                 <div className="row" key={i}>
                   <div className="label">
-                    {t.nome} - {formatar(t.preco)}
+                    <span>{t.nome} - {formatar(t.preco)}</span>
+
+                    {t.observacao && (
+                      <small className="ticket-observacao">{t.observacao}</small>
+                    )}
                   </div>
 
                   <div className="controls">

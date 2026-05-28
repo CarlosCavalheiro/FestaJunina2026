@@ -37,7 +37,16 @@
 }
 
 .garantaing .label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+}
+
+.ticket-observacao {
+  font-size: 0.8rem;
+  color: #7c4a00;
+  line-height: 1.3;
 }
 
 /* Controles (+ e -) */
