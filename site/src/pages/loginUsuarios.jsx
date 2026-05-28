@@ -1,8 +1,7 @@
 import "../components/Login/login_usuarios.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { login } from "../services/auth";
-import logado from "../services/auth";
+import { login, usuarioLogado } from "../services/auth";
 
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
@@ -37,7 +36,6 @@ function EyeIcon({ visible }) {
   );
 }
 
-let sucesso = false;
 function Entrar() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [senha, setSenha] = useState("");
@@ -47,11 +45,13 @@ function Entrar() {
   async function fazerLogin(e) {
     e.preventDefault();
 
-    console.log("botão clicado");
-    
-    if (!logado) {
-      sucesso = await login(email, senha); 
+    if (usuarioLogado()) {
+      navigate("/");
+      return;
     }
+
+    const sucesso = await login(email, senha);
+
     if (sucesso) {
       navigate("/");
     } else {
@@ -62,6 +62,10 @@ function Entrar() {
   //equivalente ao clearPasswordField
   useEffect(() => {
     setSenha("");
+
+    if (usuarioLogado()) {
+      navigate("/");
+    }
   }, []);
 
   // equivalente ao toggle()

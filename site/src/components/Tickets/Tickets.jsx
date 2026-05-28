@@ -6,6 +6,34 @@ import Api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 export default function Ingressos() {
+  function normalizarIdUsuario(valor) {
+    const id = Number(valor);
+    return Number.isInteger(id) && id > 0 ? id : null;
+  }
+
+  function extrairPedidoPendente(data) {
+    if (typeof data === "boolean") {
+      return data;
+    }
+
+    if (typeof data === "string") {
+      const normalizado = data.trim().toLowerCase();
+      return normalizado === "true" || normalizado === "1";
+    }
+
+    if (data && typeof data === "object") {
+      const candidato =
+        data.temPedidoPendente ??
+        data.pedidoPendente ??
+        data.possuiPedidoPendente ??
+        data.data;
+
+      return extrairPedidoPendente(candidato);
+    }
+
+    return false;
+  }
+
   const LOTES_CACHE_KEY = "fj2026_lotes_cache_v1";
   const LOTES_CACHE_TTL_MS = 60 * 1000;
 
@@ -108,11 +136,13 @@ export default function Ingressos() {
     usuarioObj = null;
   }
 
-  const IdUsuario =
+  const idUsuarioBruto =
     usuarioObj?.IdUsuario ??
     usuarioObj?.idUsuario ??
     localStorage.getItem("idUsuario") ??
     null;
+
+  const IdUsuario = normalizarIdUsuario(idUsuarioBruto);
 
   const tokenString = localStorage.getItem("usuario");
   let tokenObj = null;
@@ -184,6 +214,10 @@ export default function Ingressos() {
   async function VerificarPedidoPendente() {
     const ENDPOINT_VERIFICAR_PEDIDO = "Pedidos/PedidoComStatusPendente";
 
+    if (carregando) {
+      return false;
+    }
+
     if (!token) {
       abrirModal(
         "Você não está logado! Faça login para prosseguir com o pagamento.",
@@ -200,14 +234,19 @@ export default function Ingressos() {
       setCarregando(true);
 
       const response = await Api.get(ENDPOINT_VERIFICAR_PEDIDO, {
-        params: { IdUsuario: IdUsuario },
+        params: {
+          IdUsuario: IdUsuario,
+          idUsuario: IdUsuario,
+          cache: Date.now(),
+        },
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
         },
       });
 
-      const temPedidoPendente = response.data === true;
+      const temPedidoPendente = extrairPedidoPendente(response.data);
 
       if (temPedidoPendente) {
         setPedidoValido(false);
