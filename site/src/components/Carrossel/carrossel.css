@@ -11,8 +11,9 @@
 
 .fotos {
     width: 100%;
-    height: clamp(260px, 58vh, 620px);
+    height: clamp(380px, 76vh, 860px);
     object-fit: cover;
+    object-position: center;
     border-radius: 16px;
 }
 
@@ -66,7 +67,7 @@
 
     .fotos {
         width: 100%;
-        height: clamp(220px, 42vh, 360px);
+        height: clamp(280px, 50vh, 460px);
         border-radius: 10px;
     }
 

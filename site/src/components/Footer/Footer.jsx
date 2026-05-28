@@ -14,7 +14,7 @@ export default function Footer() {
 
         <div>
           <p className="sobre-footer">Atendimento</p>
-          <a href="https://api.whatsapp.com/send/?phone=5514999052383&text&type=phone_number&app_absent=0">Fale Conosco</a>
+          <a href="https://api.whatsapp.com/send/?phone=551432693959&text&type=phone_number&app_absent=0">Fale Conosco</a>
         </div>
 
         <div>
