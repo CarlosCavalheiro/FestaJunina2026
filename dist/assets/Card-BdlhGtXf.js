@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-D-oznMWL.js";var t=e();function n({img:e,titulo:n,texto:r}){return(0,t.jsxs)(`div`,{className:`card-infos`,children:[(0,t.jsx)(`div`,{children:(0,t.jsx)(`img`,{className:`img-card`,src:e,alt:n})}),(0,t.jsxs)(`div`,{className:`info-card`,children:[(0,t.jsx)(`p`,{children:n}),(0,t.jsx)(`p`,{children:r})]})]})}export{n as default};

@@ -6,6 +6,9 @@ import Api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 export default function Ingressos() {
+  const LOTES_CACHE_KEY = "fj2026_lotes_cache_v1";
+  const LOTES_CACHE_TTL_MS = 60 * 1000;
+
   const navigate = useNavigate();
 
   const [lotes, setLotes] = useState([]);
@@ -20,6 +23,23 @@ export default function Ingressos() {
   async function carregarLotes() {
     const ENDPOINT_LISTAR_LOTES = "Lotes/ListarLotes";
 
+    const cacheBruto = sessionStorage.getItem(LOTES_CACHE_KEY);
+    if (cacheBruto) {
+      try {
+        const cache = JSON.parse(cacheBruto);
+        const cacheValido =
+          Date.now() - Number(cache.timestamp || 0) < LOTES_CACHE_TTL_MS;
+
+        if (cacheValido && Array.isArray(cache.data)) {
+          setLotes(cache.data);
+          setCarregandoLotes(false);
+          return;
+        }
+      } catch {
+        // Ignora cache inválido e segue para a API.
+      }
+    }
+
     try {
       const response = await Api.get(ENDPOINT_LISTAR_LOTES);
 
@@ -28,6 +48,13 @@ export default function Ingressos() {
       );
 
       setLotes(LoteDados);
+      sessionStorage.setItem(
+        LOTES_CACHE_KEY,
+        JSON.stringify({
+          timestamp: Date.now(),
+          data: LoteDados,
+        }),
+      );
     } catch (error) {
       console.log("Erro completo:", error);
       abrirModal("Erro ao carregar lotes");

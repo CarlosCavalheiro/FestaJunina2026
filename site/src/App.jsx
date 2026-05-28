@@ -39,7 +39,22 @@ export default function App() {
   return (
     <BrowserRouter>
 
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={(
+          <div
+            style={{
+              minHeight: "100vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: 600,
+              color: "#374151",
+            }}
+          >
+            Carregando...
+          </div>
+        )}
+      >
 
         <Routes>
 

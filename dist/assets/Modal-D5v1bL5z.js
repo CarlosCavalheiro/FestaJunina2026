@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-D-oznMWL.js";import{a as t}from"./chunk-4N6VE7H7-D2iVPrsX.js";var n=e();function r({texto:e,fechar:r}){let i=t();function a(){r(),i(`/`)}return(0,n.jsx)(`div`,{className:`modal`,children:(0,n.jsxs)(`div`,{className:`modal-content`,children:[(0,n.jsx)(`p`,{children:e}),(0,n.jsx)(`button`,{onClick:a,children:`OK`})]})})}export{r as t};

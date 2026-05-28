@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "../components/Cadastrar/Cadastrar.css";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -65,6 +65,24 @@ function Entrar() {
   async function RegisterUser(e) {
     e.preventDefault();
 
+    const nomeTratado = nome.trim();
+    const emailTratado = email.trim().toLowerCase();
+    const telefoneTratado = telefone.trim();
+    const tipoDeficienciaTratado = descricaoPcd.trim();
+
+    if (!nomeTratado || !emailTratado || !telefoneTratado) {
+      setMensagemPopup("Preencha todos os campos obrigatórios.");
+      setPopup(true);
+      return;
+    }
+
+    // Evita cadastro com campos invertidos por preenchimento automático incorreto.
+    if (nomeTratado.includes("@")) {
+      setMensagemPopup("Verifique o campo nome. Parece que um e-mail foi informado nele.");
+      setPopup(true);
+      return;
+    }
+
     if (senha !== confirmarSenha) {
       setMensagemPopup("As Senhas não coincidem");
       setPopup(true);
@@ -72,25 +90,31 @@ function Entrar() {
     }
 
     try {
-      const response = await api.post("/Usuario/Registro", {
-        nome: nome,
-        email: email,
-        senha: senha,
-        telefone: telefone,
+      const payload = {
+        nome: nomeTratado,
+        email: emailTratado,
+        senha,
+        telefone: telefoneTratado,
         idPerfil: 3,
         possuiDeficiencia: pcd,
-        tipoDeficiencia: descricaoPcd,
-      });
-      //console.log(response.data);
+        tipoDeficiencia: pcd ? tipoDeficienciaTratado : "",
+      };
+
+      await api.post("/Usuario/Registro", payload);
 
       setMensagemPopup("Cadastro Realizado com Êxito");
       //navigate("/loginUsuarios");
       setPopup(true);
 
+      setNome("");
       setEmail("");
+      setTelefone("");
       setSenha("");
+      setConfirmarSenha("");
+      setPcd(false);
+      setDescricaoPcd("");
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response?.data);
       setMensagemPopup("Falha ao realizar o Cadastro");
       setPopup(true);
     }
@@ -112,9 +136,11 @@ function Entrar() {
               <h2 className="iniciais2">Seu nome:</h2>
 
               <input
+                name="nome"
                 value={nome}
                 type="text"
                 placeholder="Digite seu nome"
+                autoComplete="name"
                 onChange={(e) => setNome(e.target.value)}
                 required
               />
@@ -127,8 +153,10 @@ function Entrar() {
               <h2 className="iniciais2">Seu email:</h2>
 
               <input
+                name="email"
                 type="email"
                 placeholder="seu.email@senai.br"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -142,8 +170,10 @@ function Entrar() {
               <h2 className="iniciais2">Seu Telefone:</h2>
 
               <input
+                name="telefone"
                 type="tel"
                 placeholder="14 999999999"
+                autoComplete="tel"
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
                 required

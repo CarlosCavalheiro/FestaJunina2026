@@ -1,5 +1,5 @@
 import "../App.css";
-import { lazy, Suspense, useState } from "react";
+import { useState } from "react";
 import data from "../assets/data.png";
 import hora from "../assets/hora.png";
 import local from "../assets/local.png";
@@ -7,12 +7,11 @@ import publico from "../assets/publico.png";
 import Modal from "../components/Modal/Modal";
 import "../services/auth.js";
 //import { usuarioLogado } from "../services/auth";
-
-const Header = lazy(() => import("../components/Header/Header"));
-const Carrossel = lazy(() => import("../components/Carrossel/Carrossel"));
-const Card = lazy(() => import("../components/Card/Card"));
-const Tickets = lazy(() => import("../components/Tickets/Tickets"));
-const Footer = lazy(() => import("../components/Footer/Footer"));
+import Header from "../components/Header/Header";
+import Carrossel from "../components/Carrossel/Carrossel";
+import Card from "../components/Card/Card";
+import Tickets from "../components/Tickets/Tickets";
+import Footer from "../components/Footer/Footer";
 
 export default function Home() {
   const [modalAberto, setModalAberto] = useState(false);
@@ -36,7 +35,7 @@ export default function Home() {
   }
 
   return (
-    <Suspense fallback={null}>
+    <>
       <Header abrirModal={abrirModal} />
       <main>
         <Carrossel />
@@ -60,6 +59,6 @@ export default function Home() {
       {modalAberto && <Modal texto={textoModal} fechar={fecharModal} />}
 
       <Footer />
-    </Suspense>
+    </>
   );
 }
