@@ -1,17 +1,22 @@
 import axios from "axios";
 
+const DEFAULT_API_ORIGIN =
+  "https://apifestajunina-ayd4h6eabvg2dqhm.brazilsouth-01.azurewebsites.net/";
+
 const API_ACCESS_POINT = (
   import.meta.env.VITE_API_URL ||
-  "https://apifestajunina-ayd4h6eabvg2dqhm.brazilsouth-01.azurewebsites.net/"
+  DEFAULT_API_ORIGIN
 ).trim();
 
 const normalizedApiAccessPoint = API_ACCESS_POINT.endsWith("/")
   ? API_ACCESS_POINT
   : `${API_ACCESS_POINT}/`;
 
-export const API_BASE_URL = normalizedApiAccessPoint.endsWith("api/")
-  ? normalizedApiAccessPoint
-  : `${normalizedApiAccessPoint}api/`;
+export const API_BASE_URL = import.meta.env.DEV
+  ? "/api/"
+  : normalizedApiAccessPoint.endsWith("api/")
+    ? normalizedApiAccessPoint
+    : `${normalizedApiAccessPoint}api/`;
 
 export const API_ORIGIN = API_BASE_URL.replace(/api\/$/, "");
 

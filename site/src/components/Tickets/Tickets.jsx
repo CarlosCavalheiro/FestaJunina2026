@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./tickets.css";
 import Modal from "../Modal/Modal";
 import ModalTicket from "../Modal/modalTicket";
@@ -116,14 +116,13 @@ export default function Ingressos() {
     {
       nome: "Ingresso Infantil",
       tipo: 5,
-      preco: 7,
       qtd: 0,
       observacao: "Apenas para crianças de 3 a 9 anos",
     },
-    { nome: "Ingresso Aluno", tipo: 4, preco: 14, qtd: 0 },
-    { nome: "Ingresso Colaborador", tipo: 2, preco: 14, qtd: 0 },
-    { nome: "Ingresso Família", tipo: 1, preco: 14, qtd: 0 },
-    { nome: "Ingresso Comunidade", tipo: 3, preco: 14, qtd: 0 },
+    { nome: "Ingresso Aluno", tipo: 4, qtd: 0 },
+    { nome: "Ingresso Colaborador", tipo: 2, qtd: 0 },
+    { nome: "Ingresso Família", tipo: 1, qtd: 0 },
+    { nome: "Ingresso Comunidade", tipo: 3, qtd: 0 },
   ]);
 
   const [modal, setModal] = useState(false);
@@ -161,7 +160,18 @@ export default function Ingressos() {
 
   const token = tokenObj?.token ?? localStorage.getItem("token") ?? null;
 
-  const listaIngresso = tickets.flatMap((ticket) => {
+  const ticketsComPreco = useMemo(() => {
+    return tickets.map((ticket) => {
+      const lote = buscarLotePorTipo(ticket.tipo);
+
+      return {
+        ...ticket,
+        preco: Number(lote?.valorIng || 0),
+      };
+    });
+  }, [tickets, lotes]);
+
+  const listaIngresso = ticketsComPreco.flatMap((ticket) => {
     const lote = buscarLotePorTipo(ticket.tipo);
     if (ticket.qtd > 0) {
       return Array.from({ length: ticket.qtd }, () => ({
@@ -346,8 +356,11 @@ export default function Ingressos() {
     return "R$ " + valor.toFixed(2).replace(".", ",");
   }
 
-  const totalQtd = tickets.reduce((s, t) => s + t.qtd, 0);
-  const totalValor = tickets.reduce((s, t) => s + t.qtd * t.preco, 0);
+  const totalQtd = ticketsComPreco.reduce((s, t) => s + t.qtd, 0);
+  const totalValor = ticketsComPreco.reduce(
+    (s, t) => s + t.qtd * t.preco,
+    0,
+  );
 
   function alterar(index, delta) {
     if (delta > 0 && totalQtd >= MAX_TOTAL) {
@@ -380,7 +393,7 @@ export default function Ingressos() {
         ) : (
           <>
             <div className="box">
-              {tickets.map((t, i) => (
+              {ticketsComPreco.map((t, i) => (
                 <div className="row" key={i}>
                   <div className="label">
                     <span>{t.nome} - {formatar(t.preco)}</span>
