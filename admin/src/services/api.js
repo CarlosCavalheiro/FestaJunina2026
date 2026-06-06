@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const DEFAULT_API_ORIGIN =
-  "https://apifestajunina-ayd4h6eabvg2dqhm.brazilsouth-01.azurewebsites.net/";
+  "https://api-festajulina.senailp.com.br/";
 
 const API_ACCESS_POINT = (import.meta.env.VITE_API_URL || DEFAULT_API_ORIGIN).trim();
 
