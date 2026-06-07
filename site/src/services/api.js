@@ -22,7 +22,7 @@ export const API_ORIGIN = API_BASE_URL.replace(/api\/$/, "");
 
 const BLOB_UPLOADS_ACCESS_POINT = (
   import.meta.env.VITE_BLOB_UPLOADS_URL ||
-  "https://arquivosfestajunina.blob.core.windows.net/uploads"
+  "https://storage.senailp.com.br/festa-julina/"
 ).trim();
 
 export const BLOB_UPLOADS_BASE_URL = BLOB_UPLOADS_ACCESS_POINT.endsWith("/")
