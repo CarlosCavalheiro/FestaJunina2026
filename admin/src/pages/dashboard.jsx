@@ -737,7 +737,7 @@ export default function Dashboard() {
                 </span>
 
                 <span className="subvalor_card_dashboard">
-                  cancelados: {totalIngressosCancelados}
+                   | Cancelados: {totalIngressosCancelados}
                 </span>
               </div>
 
