@@ -109,6 +109,15 @@ export default function Ingressos() {
     .filter((l) => l.tipoLote === 1 && l.ativo && l.saldo > 0)
     .sort((a, b) => a.idLote - b.idLote);
 
+  const loteInfantilAtivo = lotes
+    .filter((l) => l.tipoLote === 2 && l.ativo)
+    .sort((a, b) => a.idLote - b.idLote)[0];
+
+  const totalInfantilDisponivel = Math.max(
+    Number(loteInfantilAtivo?.saldo || 0),
+    0,
+  );
+
   const loteAtual = lotesComunsOrdenados[0];
   const MAX_TOTAL = 4;
 
@@ -396,7 +405,12 @@ export default function Ingressos() {
               {ticketsComPreco.map((t, i) => (
                 <div className="row" key={i}>
                   <div className="label">
-                    <span>{t.nome} - {formatar(t.preco)}</span>
+                    <span>
+                      {t.nome} - {formatar(t.preco)}
+                      {t.tipo === 5 && (
+                        <> | {totalInfantilDisponivel} disponíveis</>
+                      )}
+                    </span>
 
                     {t.observacao && (
                       <small className="ticket-observacao">{t.observacao}</small>
