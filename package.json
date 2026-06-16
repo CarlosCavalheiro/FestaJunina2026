@@ -5,7 +5,7 @@
   "scripts": {
     "install:all": "npm --prefix site install && npm --prefix admin install && npm --prefix portaria install && npm --prefix pesquisa install",
     "build": "npm --prefix site run build && npm --prefix admin run build && npm --prefix portaria run build && npm --prefix pesquisa run build",
-    "preview:unificado": "npm run build && npm --prefix site run preview -- --host --port 4173 --strictPort",
+    "preview:unificado": "npm run build && node preview-unificado.mjs",
     "dev:site": "npm --prefix site run dev",
     "dev:admin": "npm --prefix admin run dev",
     "dev:portaria": "npm --prefix portaria run dev",

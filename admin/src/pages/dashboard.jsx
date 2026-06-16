@@ -261,14 +261,6 @@ export default function Dashboard() {
   }, [ingressosFiltradosPorLote]);
 
   const dadosLotesDisponibilidade = useMemo(() => {
-    const vendidosPorLote = {};
-
-    ingressosAtivos.forEach((ingresso) => {
-      const idLote = Number(ingresso.idLote);
-      vendidosPorLote[idLote] =
-        (vendidosPorLote[idLote] || 0) + 1;
-    });
-
     const dados = [];
 
     lotesFiltradosPorLote.forEach((lote) => {
@@ -276,9 +268,21 @@ export default function Dashboard() {
       const nomeLote =
         lote.descricao || `Lote ${idLote}`;
 
-      const vendidos = Number(vendidosPorLote[idLote] || 0);
-      const disponiveis = Math.max(
-        Number(lote.qtdeIngressosLotes || 0) - vendidos,
+      const saldoInformado = Number(lote.saldo);
+      const temSaldoInformado =
+        Number.isFinite(saldoInformado);
+
+      const totalLote = Math.max(
+        Number(lote.qtdeIngressosLotes || 0),
+        0,
+      );
+
+      const disponiveis = temSaldoInformado
+        ? Math.max(saldoInformado, 0)
+        : Math.max(totalLote, 0);
+
+      const vendidos = Math.max(
+        totalLote - disponiveis,
         0,
       );
 
