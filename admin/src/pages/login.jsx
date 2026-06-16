@@ -32,33 +32,46 @@ export default function Login() {
         senha,
       });
 
-      if (!data?.token) {
+      const token = data?.token ?? data?.Token ?? null;
+      const perfil = String(
+        data?.perfil ?? data?.Perfil ?? "",
+      ).trim();
+
+      const idUsuario =
+        data?.idUsuario ?? data?.IdUsuario ?? null;
+
+      const nome = data?.nome ?? data?.Nome ?? "";
+
+      const emailUsuario =
+        data?.email ?? data?.Email ?? "";
+
+      if (!token) {
         setErro("Login inválido.");
         return;
       }
 
-      if (data.perfil?.toLowerCase() !== "administrador") {
+      if (perfil.toLowerCase() !== "administrador") {
         setErro("Apenas administradores podem acessar.");
         return;
       }
 
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", token);
 
       localStorage.setItem(
         "usuario",
         JSON.stringify({
-          idUsuario: data.idUsuario,
-          nome: data.nome,
-          email: data.email,
-          perfil: data.perfil,
+          idUsuario,
+          nome,
+          email: emailUsuario,
+          perfil,
         }),
       );
 
-      localStorage.setItem("idUsuario", data.idUsuario);
+      localStorage.setItem("idUsuario", String(idUsuario ?? ""));
 
-      localStorage.setItem("usuarioNome", data.nome);
+      localStorage.setItem("usuarioNome", nome);
 
-      localStorage.setItem("perfil", data.perfil);
+      localStorage.setItem("perfil", perfil);
 
       localStorage.setItem("logado", "true");
 

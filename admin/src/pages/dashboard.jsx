@@ -166,23 +166,41 @@ export default function Dashboard() {
     filtroLote,
   ]);
 
-  const pedidosPendentes = useMemo(() => {
-    return pedidosFiltradosPorLote.filter(
-      (p) => Number(p.idStatus) === 1,
-    ).length;
-  }, [pedidosFiltradosPorLote]);
+  const obterStatusValidacaoIngresso = (ingresso) => {
+    const statusNormalizado = Number(
+      ingresso?.idStatusValidacao ??
+        ingresso?.IdStatusValidacao ??
+        ingresso?.id_status_validacao,
+    );
 
-  const pedidosPagos = useMemo(() => {
-    return pedidosFiltradosPorLote.filter(
-      (p) => Number(p.idStatus) === 2,
-    ).length;
-  }, [pedidosFiltradosPorLote]);
+    if (Number.isFinite(statusNormalizado)) {
+      return statusNormalizado;
+    }
 
-  const pedidosCancelados = useMemo(() => {
-    return pedidosFiltradosPorLote.filter(
-      (p) => Number(p.idStatus) === 3,
+    if (ingresso?.status_validacao === true) {
+      return 3;
+    }
+
+    if (ingresso?.status_validacao === false) {
+      return 2;
+    }
+
+    return 0;
+  };
+
+  const ingressosAtivos = useMemo(() => {
+    return ingressosFiltradosPorLote.filter(
+      (ingresso) =>
+        obterStatusValidacaoIngresso(ingresso) !== 4,
+    );
+  }, [ingressosFiltradosPorLote]);
+
+  const totalIngressosCancelados = useMemo(() => {
+    return ingressosFiltradosPorLote.filter(
+      (ingresso) =>
+        obterStatusValidacaoIngresso(ingresso) === 4,
     ).length;
-  }, [pedidosFiltradosPorLote]);
+  }, [ingressosFiltradosPorLote]);
 
   const valorTotalPago = useMemo(() => {
     return pedidosFiltradosPorLote
@@ -203,16 +221,49 @@ export default function Dashboard() {
       );
   }, [pedidosFiltradosPorLote, filtroReceita]);
 
-  const dadosPedidos = [
-    { nome: "Pendentes", valor: pedidosPendentes },
-    { nome: "Pagos", valor: pedidosPagos },
-    { nome: "Cancelados", valor: pedidosCancelados },
-  ];
+  const dadosStatusIngressos = useMemo(() => {
+    const contador = {
+      invalido: 0,
+      valido: 0,
+      utilizado: 0,
+      cancelados: 0,
+      outros: 0,
+    };
+
+    ingressosFiltradosPorLote.forEach((ingresso) => {
+      const status = obterStatusValidacaoIngresso(ingresso);
+
+      if (status === 1) contador.invalido += 1;
+      else if (status === 2) contador.valido += 1;
+      else if (status === 3)
+        contador.utilizado += 1;
+      else if (status === 4)
+        contador.cancelados += 1;
+      else contador.outros += 1;
+    });
+
+    return [
+      {
+        nome: "Inválido",
+        valor: contador.invalido,
+      },
+      { nome: "Válido", valor: contador.valido },
+      {
+        nome: "Utilizado",
+        valor: contador.utilizado,
+      },
+      {
+        nome: "Cancelado",
+        valor: contador.cancelados,
+      },
+      { nome: "Outros", valor: contador.outros },
+    ];
+  }, [ingressosFiltradosPorLote]);
 
   const dadosLotesDisponibilidade = useMemo(() => {
     const vendidosPorLote = {};
 
-    ingressosFiltradosPorLote.forEach((ingresso) => {
+    ingressosAtivos.forEach((ingresso) => {
       const idLote = Number(ingresso.idLote);
       vendidosPorLote[idLote] =
         (vendidosPorLote[idLote] || 0) + 1;
@@ -245,7 +296,7 @@ export default function Dashboard() {
     });
 
     return dados;
-  }, [ingressosFiltradosPorLote, lotesFiltradosPorLote]);
+  }, [ingressosAtivos, lotesFiltradosPorLote]);
 
   const dadosTipos = useMemo(() => {
     const tiposMap = {
@@ -258,7 +309,7 @@ export default function Dashboard() {
 
     const agrupado = {};
 
-    ingressosFiltradosPorLote.forEach((ingresso) => {
+    ingressosAtivos.forEach((ingresso) => {
       const nomeTipo =
         tiposMap[Number(ingresso?.idTipo)] ||
         `Tipo ${ingresso?.idTipo || "Desconhecido"}`;
@@ -273,20 +324,33 @@ export default function Dashboard() {
         valor,
       }),
     );
-  }, [ingressosFiltradosPorLote]);
+  }, [ingressosAtivos]);
 
   const dadosUtilizacao = useMemo(() => {
     return [
       {
         nome: "Utilizados",
         valor: ingressosFiltradosPorLote.filter(
-          (i) => i.status_validacao === true,
+          (i) =>
+            obterStatusValidacaoIngresso(i) === 3,
         ).length,
       },
       {
         nome: "Não utilizados",
         valor: ingressosFiltradosPorLote.filter(
-          (i) => i.status_validacao !== true,
+          (i) => {
+            const status =
+              obterStatusValidacaoIngresso(i);
+
+            return status === 1 || status === 2;
+          },
+        ).length,
+      },
+      {
+        nome: "Cancelados",
+        valor: ingressosFiltradosPorLote.filter(
+          (i) =>
+            obterStatusValidacaoIngresso(i) === 4,
         ).length,
       },
     ];
@@ -300,7 +364,7 @@ export default function Dashboard() {
   }, [lotesFiltradosPorLote]);
 
   const ingressosVendidosOuReservados =
-    ingressosFiltradosPorLote.length;
+    ingressosAtivos.length;
 
   const ingressosNaoVendidos = Math.max(
     totalIngressosDisponiveis - ingressosVendidosOuReservados,
@@ -411,9 +475,10 @@ export default function Dashboard() {
     }));
   };
 
-  const possuiDadosGrafico = dadosPedidos.some(
-    (item) => item.valor > 0,
-  );
+  const possuiDadosStatusIngressos =
+    dadosStatusIngressos.some(
+      (item) => item.valor > 0,
+    );
 
   const possuiDadosLotesDisponibilidade =
     dadosLotesDisponibilidade.some(
@@ -660,13 +725,15 @@ export default function Dashboard() {
                 </h4>
 
                 <p>
-                  {
-                    ingressosFiltradosPorLote.length
-                  }
+                  {ingressosAtivos.length}
                 </p>
 
                 <span className="subvalor_card_dashboard">
                   de {totalIngressosDisponiveis} disponíveis
+                </span>
+
+                <span className="subvalor_card_dashboard">
+                  cancelados: {totalIngressosCancelados}
                 </span>
               </div>
 
@@ -678,15 +745,15 @@ export default function Dashboard() {
         {!mostrarPesquisas ? (
           <section className="dashboard-grid">
   <div className="grafico-card">
-    <h3>Status dos pedidos</h3>
+    <h3>Status dos ingressos</h3>
 
     <div className="grafico-container">
-      {possuiDadosGrafico ? (
+      {possuiDadosStatusIngressos ? (
         <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
               data={prepararDadosGrafico(
-                dadosPedidos,
+                dadosStatusIngressos,
               )}
               dataKey="valor"
               nameKey="nome"
@@ -698,7 +765,7 @@ export default function Dashboard() {
               label={renderPercentLabel}
             >
               {prepararDadosGrafico(
-                dadosPedidos,
+                dadosStatusIngressos,
               ).map((entry, index) => (
                   <Cell
                     key={index}
@@ -852,6 +919,7 @@ export default function Dashboard() {
     </div>
   </div>
 
+  {/*
   <div className="grafico-card">
     <h3>Visão geral dos ingressos</h3>
 
@@ -894,6 +962,7 @@ export default function Dashboard() {
       )}
     </div>
   </div>
+  */}
 </section>
         ) : null}
       </main>
