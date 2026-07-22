@@ -121,48 +121,34 @@ export default function LeitorQR() {
     }
 
     try {
-      const valorLido = decodedText?.trim();
-      if (!valorLido) {
+      const qrCode = decodedText?.trim();
+      if (!qrCode) {
         throw new Error("QR vazio");
       }
 
-      const idIngresso = extrairIdIngresso(valorLido);
-      if (!idIngresso) {
-        throw new Error("QR não contém um identificador de ingresso válido");
-      }
+      setResultado(`Validando QR Code...`);
 
-      setResultado(`Validando ingresso ${idIngresso}...`);
-
-      const response = await api.post("/Ingresso/ValidarIngresso", {
-        idIngresso: Number(idIngresso)
+      const response = await api.post("/Verificador/validar-qrCode", {
+        usuarioQueUsou: 0
+      }, {
+        params: { qrCode }
       });
 
-      const sucesso = response?.data?.success ?? response?.data?.sucesso ?? true;
-      const mensagem = response?.data?.message || response?.data?.mensagem || "Ingresso validado com sucesso";
+      const sucesso = response?.data?.sucesso ?? response?.data?.success ?? true;
+      const mensagem = response?.data?.mensagem || response?.data?.message || "Ingresso validado com sucesso";
 
       if (!sucesso) {
         throw new Error(mensagem);
       }
 
       abrirPopup(mensagem, "sucesso");
-      setResultado(`Ingresso ${idIngresso} validado`);
+      setResultado("QR Code validado com sucesso");
     } catch (erro) {
-      console.error("Erro na validação do ingresso:", erro);
-      const mensagemErro = erro?.response?.data?.message || erro?.response?.data?.mensagem || erro?.message || "QR Code inválido";
+      console.error("Erro na validação do QR Code:", erro);
+      const mensagemErro = erro?.response?.data?.mensagem || erro?.response?.data?.message || erro?.message || "QR Code inválido";
       abrirPopup(mensagemErro, "erro");
-      setResultado("Erro ao validar ingresso");
+      setResultado("Erro ao validar QR Code");
     }
-  }
-
-  function extrairIdIngresso(valor) {
-    const texto = String(valor).trim();
-
-    const match = texto.match(/\d+/);
-    if (match) {
-      return match[0];
-    }
-
-    return "";
   }
 
   function abrirPopup(mensagem, tipo) {
