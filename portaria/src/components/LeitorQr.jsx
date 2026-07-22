@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import CryptoJS from "crypto-js";
 import { Html5Qrcode } from "html5-qrcode";
+import api from "../services/api";
 import "../styles/QrCode.css";
 
 export default function LeitorQR() {
@@ -18,8 +18,6 @@ export default function LeitorQR() {
     mensagem: "",
     tipo: ""
   });
-
-  const chave = import.meta.env.VITE_QR_SECRET;
 
   useEffect(() => {
     const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
@@ -113,7 +111,7 @@ export default function LeitorQR() {
     await iniciarCamera(preferencia);
   }
 
-  function onScanSuccess(decodedText) {
+  async function onScanSuccess(decodedText) {
     if (isCooldown) return;
 
     setIsCooldown(true);
@@ -123,39 +121,48 @@ export default function LeitorQR() {
     }
 
     try {
-      const bytes = CryptoJS.AES.decrypt(decodedText, chave);
-      const textoOriginal = bytes.toString(CryptoJS.enc.Utf8);
-
-      if (!textoOriginal) {
-        throw new Error("QR incompatível");
+      const valorLido = decodedText?.trim();
+      if (!valorLido) {
+        throw new Error("QR vazio");
       }
 
-      const dados = JSON.parse(textoOriginal);
-      const id = dados.id;
-
-      const usedQRCodesAtuais =
-        JSON.parse(localStorage.getItem("usedQRCodes")) || {};
-
-      if (usedQRCodesAtuais[id]) {
-        abrirPopup(`QR ${id} já foi utilizado`, "erro");
-      } else {
-        const novos = {
-          ...usedQRCodesAtuais,
-          [id]: true
-        };
-
-        localStorage.setItem(
-          "usedQRCodes",
-          JSON.stringify(novos)
-        );
-
-        abrirPopup(`QR ${id} liberado com sucesso`, "sucesso");
+      const idIngresso = extrairIdIngresso(valorLido);
+      if (!idIngresso) {
+        throw new Error("QR não contém um identificador de ingresso válido");
       }
 
+      setResultado(`Validando ingresso ${idIngresso}...`);
+
+      const response = await api.post("/Ingresso/ValidarIngresso", {
+        idIngresso: Number(idIngresso)
+      });
+
+      const sucesso = response?.data?.success ?? response?.data?.sucesso ?? true;
+      const mensagem = response?.data?.message || response?.data?.mensagem || "Ingresso validado com sucesso";
+
+      if (!sucesso) {
+        throw new Error(mensagem);
+      }
+
+      abrirPopup(mensagem, "sucesso");
+      setResultado(`Ingresso ${idIngresso} validado`);
     } catch (erro) {
-      console.error("Erro na decodificação:", erro);
-      abrirPopup("QR Code inválido", "erro");
+      console.error("Erro na validação do ingresso:", erro);
+      const mensagemErro = erro?.response?.data?.message || erro?.response?.data?.mensagem || erro?.message || "QR Code inválido";
+      abrirPopup(mensagemErro, "erro");
+      setResultado("Erro ao validar ingresso");
     }
+  }
+
+  function extrairIdIngresso(valor) {
+    const texto = String(valor).trim();
+
+    const match = texto.match(/\d+/);
+    if (match) {
+      return match[0];
+    }
+
+    return "";
   }
 
   function abrirPopup(mensagem, tipo) {
