@@ -129,7 +129,7 @@ export default function LeitorQR() {
       setResultado(`Validando QR Code...`);
 
       const response = await api.post("/Verificador/validar-qrCode", {
-        usuarioQueUsou: 0
+        usuarioQueLeu: 0
       }, {
         params: { qrCode }
       });
