@@ -9,6 +9,9 @@ export default function LeitorQR() {
 
   const [resultado, setResultado] = useState("Aguardando leitura...");
   const [isCooldown, setIsCooldown] = useState(false);
+  const [cameraMode, setCameraMode] = useState("environment");
+  const [cameraError, setCameraError] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
   const [popup, setPopup] = useState({
     aberto: false,
@@ -19,27 +22,52 @@ export default function LeitorQR() {
   const chave = import.meta.env.VITE_QR_SECRET;
 
   useEffect(() => {
+    const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    setIsMobile(mobile);
+
     if (!startedRef.current) {
       startedRef.current = true;
-      iniciarCamera();
+      iniciarCamera(mobile ? "environment" : cameraMode);
     }
 
     return () => {
-      if (html5QrCodeRef.current && html5QrCodeRef.current.isScanning) {
+      if (html5QrCodeRef.current?.isScanning) {
         html5QrCodeRef.current.stop().catch(() => {});
       }
     };
   }, []);
 
-  async function iniciarCamera() {
+  async function iniciarCamera(preferencia = "environment") {
     try {
-      Html5Qrcode.getCameras().catch(() => {});
+      if (!navigator.mediaDevices?.getUserMedia) {
+        throw new Error("Este navegador não suporta acesso à câmera.");
+      }
+
+      if (!window.isSecureContext && window.location.hostname !== "localhost") {
+        throw new Error("A câmera precisa de uma conexão segura (HTTPS ou localhost).");
+      }
+
+      if (html5QrCodeRef.current?.isScanning) {
+        await html5QrCodeRef.current.stop().catch(() => {});
+      }
 
       const html5QrCode = new Html5Qrcode("leitor");
       html5QrCodeRef.current = html5QrCode;
 
+      const cameras = await Html5Qrcode.getCameras();
+
+      if (!cameras?.length) {
+        throw new Error("Nenhuma câmera disponível neste dispositivo.");
+      }
+
+      const camera = selecionarCamera(cameras, preferencia);
+
+      if (!camera) {
+        throw new Error("Não foi possível encontrar a câmera desejada.");
+      }
+
       await html5QrCode.start(
-        { facingMode: "environment" },
+        camera.id,
         {
           fps: 30,
           qrbox: {
@@ -47,15 +75,42 @@ export default function LeitorQR() {
             height: 300
           },
           aspectRatio: 1,
-          disableFlip: true
+          disableFlip: false
         },
         onScanSuccess,
         onScanFailure
       );
+
+      setCameraMode(preferencia);
+      setResultado("Aguardando leitura...");
+      setCameraError("");
     } catch (err) {
       console.error(err);
-      setResultado("Erro ao acessar câmera");
+      const mensagem = err?.message || "Erro ao acessar câmera";
+      setCameraError(mensagem);
+      setResultado(mensagem);
     }
+  }
+
+  function selecionarCamera(cameras, preferencia) {
+    const preferenciaNormalizada = preferencia.toLowerCase();
+
+    const cameraPreferida = cameras.find((camera) => {
+      const rotulo = (camera.label || "").toLowerCase();
+
+      if (preferenciaNormalizada === "user" || preferenciaNormalizada === "front" || preferenciaNormalizada === "frontal") {
+        return rotulo.includes("front") || rotulo.includes("user") || rotulo.includes("frontal") || rotulo.includes("selfie");
+      }
+
+      return rotulo.includes("back") || rotulo.includes("rear") || rotulo.includes("environment") || rotulo.includes("traseira") || rotulo.includes("traseiro");
+    });
+
+    return cameraPreferida || cameras[0];
+  }
+
+  async function trocarCamera(preferencia) {
+    setCameraMode(preferencia);
+    await iniciarCamera(preferencia);
   }
 
   function onScanSuccess(decodedText) {
@@ -112,12 +167,29 @@ export default function LeitorQR() {
   }
 
   function onScanFailure() {
-
+    if (resultado !== "Posicione o QR no centro da câmera.") {
+      setResultado("Posicione o QR no centro da câmera.");
+    }
   }
 
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Leitor de QR Code</h2>
+
+      <div className="camera-controls">
+        <button
+          className="camera-toggle"
+          onClick={() => trocarCamera("environment")}
+        >
+          {isMobile ? "Traseira (padrão)" : "Câmera traseira"}
+        </button>
+        <button
+          className="camera-toggle"
+          onClick={() => trocarCamera("user")}
+        >
+          {isMobile ? "Frontal" : "Câmera frontal"}
+        </button>
+      </div>
 
       <div
         id="leitor"
@@ -127,9 +199,13 @@ export default function LeitorQR() {
         }}
       ></div>
 
-      <p style={{ fontWeight: "bold" }}>
+      <p className="camera-status">
         {resultado}
       </p>
+
+      {cameraError && (
+        <p className="camera-error">{cameraError}</p>
+      )}
 
       {popup.aberto && (
         <div className="popup-overlay">

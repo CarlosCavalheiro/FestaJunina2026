@@ -91,6 +91,37 @@ body {
   cursor: pointer;
 }
 
+.camera-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.camera-toggle {
+  background-color: #b33a1e;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.camera-status {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.camera-error {
+  margin-top: 8px;
+  color: #b33a1e;
+  font-size: 0.9rem;
+}
+
 .status {
   margin-top: 10px;
   font-size: 0.9rem;
