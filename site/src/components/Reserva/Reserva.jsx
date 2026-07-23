@@ -60,7 +60,7 @@ export default function Reserva({ item }) {
               case "utilizado":
                 return (
                   <div className="ingr utilizado">
-                    <div className="icone-utilizado" aria-hidden="true">✓</div>
+                    <div className="icone-utilizado" aria-hidden="true">{"\u2713"}</div>
                     <p className="statusPedido">Ingresso utilizado</p>
                     <hr />
                     <div className="PHInfo">
