@@ -68,6 +68,11 @@
         border: 3px solid #2ecc71;
     }
 
+    .utilizado {
+        border: 3px solid #6b7280;
+        background: #f3f4f6;
+    }
+
     .cancelado {
         border: 3px solid #e74c3c;
     }
@@ -90,6 +95,21 @@
         width: 164px; 
         margin-top: -18px; 
         margin-left: -4px
+    }
+
+    .icone-utilizado {
+        width: 112px;
+        height: 112px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        background: #6b7280;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4.5rem;
+        font-weight: bold;
+        line-height: 1;
     }
 
 .statusPedido {
@@ -130,4 +150,53 @@
     border: none;
     border-radius: 6px;
     transition: all 0.3s ease;
+}
+
+@media (max-width: 600px) {
+    .PHIngressos {
+        gap: 24px;
+        padding: 0 16px;
+    }
+
+    .ingr {
+        width: min(280px, calc(100vw - 48px));
+        height: 380px;
+        padding: 24px;
+    }
+
+    .QRValido {
+        width: 210px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .block {
+        width: 165px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .IngCancelado {
+        width: 190px;
+    }
+
+    .icone-utilizado {
+        width: 140px;
+        height: 140px;
+        font-size: 5.5rem;
+    }
+
+    .ingrId {
+        font-size: 1.4rem;
+    }
+
+    .ingrVT {
+        font-size: 1.2rem;
+    }
+
+    .ingrVT2,
+    .statusPedido {
+        font-size: 1rem;
+    }
 }
