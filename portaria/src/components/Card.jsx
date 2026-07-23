@@ -1,27 +1,26 @@
 export default function Card({
-  imagem,
   qtIngressos,
   tipoIngresso,
   status1,
-  status2
+  status2,
+  usuarioQueLeu,
 }) {
   return (
     <div className="containerIngressos">
       <div className="cardIngressos">
         <div className="card-header">
-          <h2>Ingresso {qtIngressos}</h2>
+          <span className="card-ingresso-id">Ingresso #{qtIngressos}</span>
 
-          <p>{tipoIngresso}</p>
-
-          <img
-            src={imagem}
-            alt="qr code"
-            className="qr-code"
-          />
+          <h2>{tipoIngresso}</h2>
 
           <h1 className="status1">{status1}</h1>
 
-          <h1 className="status2">{status2}</h1>
+          <p className="card-label">Data e horário da entrada</p>
+          <p className="status2">{status2}</p>
+
+          {usuarioQueLeu && (
+            <p className="card-leitor">Lido pelo usuário #{usuarioQueLeu}</p>
+          )}
         </div>
       </div>
     </div>

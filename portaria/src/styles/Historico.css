@@ -325,6 +325,170 @@ img.qr-code {
   font-style: italic;
 }
 
+.historico {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.historico-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.historico-eyebrow {
+  color: #a84318;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.historico-cabecalho h1 {
+  margin: 0.35rem 0;
+  color: #4b1f10;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.historico-cabecalho p:not(.historico-eyebrow) {
+  color: #6b7280;
+}
+
+.btn-atualizar {
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  background: #a84318;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.8rem 1.2rem;
+}
+
+.btn-atualizar:hover {
+  background: #7d2f10;
+}
+
+.resumo-ingressos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.card-resumo {
+  min-height: 130px;
+  border: 1px solid #efd7ca;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 5px 16px rgba(82, 33, 14, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.15rem;
+}
+
+.card-resumo span,
+.card-resumo small {
+  color: #725d55;
+}
+
+.card-resumo strong {
+  color: #a84318;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0.25rem 0;
+}
+
+.card-resumo-total {
+  background: #a84318;
+  border-color: #a84318;
+}
+
+.card-resumo-total span,
+.card-resumo-total small,
+.card-resumo-total strong {
+  color: #fff;
+}
+
+.lista-ingressos-titulo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #ecd4c8;
+  padding-bottom: 0.8rem;
+}
+
+.lista-ingressos-titulo h2 {
+  color: #4b1f10;
+}
+
+.lista-ingressos-titulo span {
+  color: #725d55;
+}
+
+.containerCards {
+  justify-content: flex-start;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+}
+
+.containerIngressos {
+  flex: 1 1 245px;
+  max-width: 280px;
+}
+
+.cardIngressos {
+  width: 100%;
+  min-height: 230px;
+  border: 1px solid #efd7ca;
+  border-top: 6px solid #d35400;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 5px 16px rgba(82, 33, 14, 0.08);
+  padding: 1.25rem;
+}
+
+.card-header {
+  align-items: flex-start;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.card-header h2 {
+  color: #4b1f10;
+  font-size: 1.35rem;
+}
+
+.card-ingresso-id,
+.card-label,
+.card-leitor {
+  color: #725d55;
+  font-size: 0.85rem;
+}
+
+.status1 {
+  color: #188a48;
+  font-size: 1rem;
+  margin-top: 0.6rem;
+}
+
+.status2 {
+  color: #4b1f10;
+  font-size: 1rem;
+  text-transform: none;
+}
+
+.historico-vazio {
+  color: #725d55;
+  padding: 2rem 0;
+  text-align: center;
+}
+
 
 footer.rodape {
   background-color: brown;
@@ -358,6 +522,15 @@ footer.rodape {
 
 
 @media (max-width: 768px) {
+  .historico {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .historico-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   header {
     padding: 1rem;
   }
@@ -375,13 +548,10 @@ footer.rodape {
   }
 
   .containerCards {
-    padding: 1rem;
     gap: 1rem;
   }
 
   .cardIngressos {
-    width: 90%;
-    max-width: 300px;
     min-height: auto;
   }
 

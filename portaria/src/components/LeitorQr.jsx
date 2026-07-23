@@ -122,10 +122,14 @@ export default function LeitorQR() {
 
     try {
       const qrCode = decodedText?.trim();
-      const idUsuario = localStorage.getItem("idUsuario");
+      const idUsuario = Number(localStorage.getItem("idUsuario"));
 
       if (!qrCode) {
         throw new Error("QR vazio");
+      }
+
+      if (!Number.isInteger(idUsuario) || idUsuario <= 0) {
+        throw new Error("Usuário da portaria inválido. Faça login novamente.");
       }
 
       setResultado(`Validando QR Code...`);
@@ -137,7 +141,9 @@ export default function LeitorQR() {
       });
 
       const sucesso = response?.data?.sucesso ?? response?.data?.success ?? true;
-      const mensagem = response?.data?.mensagem || response?.data?.message || "Ingresso validado com sucesso";
+      const mensagem = typeof response?.data === "string"
+        ? response.data
+        : response?.data?.mensagem || response?.data?.message || "Ingresso validado com sucesso";
 
       if (!sucesso) {
         throw new Error(mensagem);
@@ -147,7 +153,10 @@ export default function LeitorQR() {
       setResultado("QR Code validado com sucesso");
     } catch (erro) {
       console.error("Erro na validação do QR Code:", erro);
-      const mensagemErro = erro?.response?.data?.mensagem || erro?.response?.data?.message || erro?.message || "QR Code inválido";
+      const respostaErro = erro?.response?.data;
+      const mensagemErro = typeof respostaErro === "string"
+        ? respostaErro
+        : respostaErro?.mensagem || respostaErro?.message || erro?.message || "QR Code inválido";
       abrirPopup(mensagemErro, "erro");
       setResultado("Erro ao validar QR Code");
     }
