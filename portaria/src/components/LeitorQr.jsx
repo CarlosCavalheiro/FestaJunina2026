@@ -122,6 +122,8 @@ export default function LeitorQR() {
 
     try {
       const qrCode = decodedText?.trim();
+      const idUsuario = localStorage.getItem("idUsuario");
+
       if (!qrCode) {
         throw new Error("QR vazio");
       }
@@ -129,7 +131,7 @@ export default function LeitorQR() {
       setResultado(`Validando QR Code...`);
 
       const response = await api.post("/Verificador/validar-qrCode", {
-        usuarioQueLeu: 0
+        usuarioQueLeu: idUsuario
       }, {
         params: { qrCode }
       });
