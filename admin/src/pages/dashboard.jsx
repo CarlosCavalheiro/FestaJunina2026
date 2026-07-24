@@ -89,8 +89,9 @@ export default function Dashboard() {
 
       try {
         const response = await api.get("/Pesquisa");
-        perguntasData = Array.isArray(response.data)
-          ? response.data
+        const dadosPesquisa = response.data?.data ?? response.data;
+        perguntasData = Array.isArray(dadosPesquisa)
+          ? dadosPesquisa
           : [];
       } catch (error) {
         console.log("Erro pesquisa:", error);
@@ -108,15 +109,20 @@ export default function Dashboard() {
           const respostaResponse = await api.get(
             `/Pesquisa/resposta-por-idpergunta?idPergunta=${pergunta.idPergunta}`,
           );
+          const dadosRespostas =
+            respostaResponse.data?.data ?? respostaResponse.data;
+          const respostasDaPergunta = Array.isArray(dadosRespostas)
+            ? dadosRespostas
+            : dadosRespostas
+              ? [dadosRespostas]
+              : [];
 
           respostasTemp.push({
             idPergunta: pergunta.idPergunta,
             pergunta: pergunta.descricaoPergunta,
             tipoPergunta: pergunta.tipoPergunta,
             idTpUser: pergunta.idTpUser,
-            respostas: Array.isArray(respostaResponse.data)
-              ? respostaResponse.data
-              : [],
+            respostas: respostasDaPergunta,
           });
         } catch (error) {
           console.log("Erro respostas:", error);
@@ -375,22 +381,6 @@ export default function Dashboard() {
     0,
   );
 
-  const dadosVisaoGeralIngressos = useMemo(() => {
-    return [
-      {
-        nome: "Vendidos/Reservados",
-        valor: ingressosVendidosOuReservados,
-      },
-      {
-        nome: "Não vendidos",
-        valor: ingressosNaoVendidos,
-      },
-    ];
-  }, [
-    ingressosVendidosOuReservados,
-    ingressosNaoVendidos,
-  ]);
-
   const perguntasFiltradas = useMemo(() => {
     if (!filtroTipoUsuario) return respostas;
 
@@ -421,6 +411,17 @@ export default function Dashboard() {
       }),
     );
   };
+
+  const nomesTiposUsuario = {
+    1: "Cliente",
+    2: "Colaborador",
+    3: "Entidade",
+  };
+
+  const obterRespostasTexto = (respostasLista) =>
+    respostasLista
+      .map((resposta) => String(resposta?.resposta ?? "").trim())
+      .filter(Boolean);
 
   const renderPercentLabel = ({
     percent,
@@ -506,11 +507,6 @@ export default function Dashboard() {
 
   const possuiDadosUtilizacao =
     dadosUtilizacao.some(
-      (item) => item.valor > 0,
-    );
-
-  const possuiDadosVisaoGeralIngressos =
-    dadosVisaoGeralIngressos.some(
       (item) => item.valor > 0,
     );
 
@@ -968,7 +964,76 @@ export default function Dashboard() {
   </div>
   */}
 </section>
-        ) : null}
+        ) : (
+          <section className="respostas_dashboard">
+            <h2>Resultados da pesquisa de satisfação</h2>
+
+            {perguntasFiltradas.length === 0 ? (
+              <div className="sem_dados_dashboard">
+                Nenhuma pergunta encontrada para este público.
+              </div>
+            ) : (
+              perguntasFiltradas.map((item) => {
+                const respostasTexto = obterRespostasTexto(item.respostas);
+                const ehDissertativa = Number(item.tipoPergunta) === 2;
+                const dadosAlternativas = formatarDadosAlternativas(item.respostas);
+                const possuiRespostas = respostasTexto.length > 0;
+                const nomeTipo = nomesTiposUsuario[Number(item.idTpUser)] || "Público não identificado";
+
+                return (
+                  <article className="pergunta_dashboard" key={item.idPergunta}>
+                    <div className="pergunta-header-container">
+                      <span
+                        className={`badge_user ${
+                          Number(item.idTpUser) === 1
+                            ? "cliente"
+                            : Number(item.idTpUser) === 2
+                              ? "colaborador"
+                              : "entidade"
+                        }`}
+                      >
+                        {nomeTipo}
+                      </span>
+                      <h3>{item.pergunta}</h3>
+                    </div>
+
+                    {!possuiRespostas ? (
+                      <p className="resposta_dashboard">Ainda não há respostas para esta pergunta.</p>
+                    ) : ehDissertativa ? (
+                      respostasTexto.map((resposta, index) => (
+                        <p className="resposta_dashboard" key={`${item.idPergunta}-${index}`}>
+                          {resposta}
+                        </p>
+                      ))
+                    ) : (
+                      <div className="grafico-container">
+                        <ResponsiveContainer width="100%" height={300}>
+                          <PieChart>
+                            <Pie
+                              data={prepararDadosGrafico(dadosAlternativas)}
+                              dataKey="valor"
+                              nameKey="nome"
+                              cx="50%"
+                              cy="50%"
+                              outerRadius={100}
+                              label={renderPercentLabel}
+                            >
+                              {prepararDadosGrafico(dadosAlternativas).map((entrada, index) => (
+                                <Cell key={entrada.nome} fill={COLORS[index % COLORS.length]} />
+                              ))}
+                            </Pie>
+                            <Tooltip content={renderTooltipSomenteRotulo} />
+                            <Legend />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
+                    )}
+                  </article>
+                );
+              })
+            )}
+          </section>
+        )}
       </main>
 
       <Footer />

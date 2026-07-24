@@ -39,7 +39,9 @@ export default function Perguntas() {
     getPerguntas();
   }, []);
 
-  const filtradas = perguntas.filter((p) => p.idTpUser === grupo);
+  const filtradas = perguntas.filter(
+    (p) => Number(p.idTpUser) === Number(grupo),
+  );
 
   function abrirModal() {
     setNovaPergunta({
